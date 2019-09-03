@@ -1,0 +1,83 @@
+# https://packages.ubuntu.com/bionic/lxd
+
+# install packages
+apt install acl adduser git libacl1 liblxc1 libuv1 lxcfs passwd rsync squashfs-tools uidmap xdelta3 xz-utils
+# apt install dnsmasq-base ebtables iptables
+
+# clone binaries
+git clone https://github.com/s3rj1k/lxd-repack.git
+
+# sync overlay
+rsync -avzh ./lxd-debain-repack/overlay/etc/ /etc
+rsync -avzh ./lxd-debain-repack/overlay/lib/ /lib
+rsync -avzh ./lxd-debain-repack/overlay/usr/ /usr
+
+# create dirs
+mkdir -p /var/lib/lxd /var/log/lxd
+
+# reload systemd daemons
+systemctl daemon-reload
+
+# enable systemd services
+systemctl enable lxcfs
+systemctl enable lxd.service
+systemctl enable lxd.socket
+systemctl enable lxd-containers.service
+
+# create user and group
+adduser --system lxd --home /var/lib/lxd/ --shell /bin/false
+addgroup --system lxd
+
+# get free user subuid/subgid
+cat /etc/subuid | awk -F":" '{print $2+$3}' | sort -urn | head -1 | awk '{print "StartUID:"$1" EndUID:"$1+65535}'
+cat /etc/subgid | awk -F":" '{print $2+$3}' | sort -urn | head -1 | awk '{print "StartGID:"$1" EndGID:"$1+65535}'
+
+# set users subuid
+usermod --add-subuids $StartUID-$EndUID lxd
+usermod --add-subuids $StartUID-$EndUID root
+
+# set users subguid
+usermod --add-subgids $StartGID-$EndGID lxd
+usermod --add-subgids $StartGID-$EndGID root
+
+# add each sudo user to the lxd group
+for u in $(getent group sudo | sed -e "s/^.*://" -e "s/,/ /g"); do adduser "$u" lxd >/dev/null || true; done
+
+# change dir ownership
+chown -R lxd:lxd /var/lib/lxd /var/log/lxd
+
+# start systemd services
+systemctl start lxcfs
+systemctl start lxd-containers.service
+systemctl start lxd.socket
+systemctl start lxd.service
+
+# configure lxd daemon
+cat <<EOF | lxd init --preseed
+config: {}
+networks: []
+storage_pools:
+- config: {}
+  description: ""
+  name: default
+  driver: dir
+profiles:
+- config: {}
+  description: ""
+  devices:
+    root:
+      path: /
+      pool: default
+      type: disk
+  name: default
+cluster: null
+EOF
+
+# create test ct
+lxc init ubuntu:18.04 test
+
+# disable apparmor in ct
+# lxc config set test raw.lxc lxc.apparmor.profile=unconfined
+
+# start ct
+lxc start test

@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: lxd
+Upstream-Contact: lxc-devel@lists.linuxcontainers.org
+Source: https://linuxcontainers.org/lxd/downloads
+
+Files: *
+Copyright: 2019 s3rj1k <evasive.gyron@gmail.com>
+License: Apache-2
