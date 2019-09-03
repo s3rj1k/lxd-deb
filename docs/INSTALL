@@ -1,0 +1,116 @@
+# https://packages.ubuntu.com/bionic/lxd
+
+# install packages
+apt install acl adduser binutils fuse git libacl1 libuv1 passwd quota rsync squashfs-tools uidmap xdelta3 xfsprogs xz-utils
+
+# PROJECT QUOTA
+# enable quota on ext4 partition: 'tune2fs -O project,quota -Q prjquota /dev/md1'
+# check filesystem features: 'tune2fs -l /dev/md1 | grep features'
+# mount ext4 partition to '/var/lib/lxd/storage-pools/default' with 'prjquota' mount option (/etc/fstab)
+# get quota information: 'repquota -avugPs'
+
+# clone binaries
+git clone https://github.com/s3rj1k/lxd-repack.git
+
+# sync overlay
+rsync -avzh ./lxd-repack/overlay/etc/ /etc
+rsync -avzh ./lxd-repack/overlay/lib/ /lib
+rsync -avzh ./lxd-repack/overlay/usr/ /usr
+
+# create needed directories
+mkdir -p /var/log/lxd /var/lib/lxcfs
+
+# reload systemd daemons
+systemctl daemon-reload
+
+# enable systemd services
+systemctl enable lxcfs.service
+systemctl enable lxd.service
+systemctl enable lxd.socket
+systemctl enable lxd-containers.service
+
+# create user and group
+addgroup --system lxd
+adduser --system lxd --home /var/lib/lxd/ --shell /bin/false
+
+# get free user subuid/subgid
+export `cat /etc/subuid | awk -F":" '{print $2+$3}' | sort -urn | head -1 | awk '{print "START_UID="$1"\nEND_UID="$1+65535}'`
+export `cat /etc/subgid | awk -F":" '{print $2+$3}' | sort -urn | head -1 | awk '{print "START_GID="$1"\nEND_GID="$1+65535}'`
+
+# set users subuid
+usermod --add-subuids $START_UID-$END_UID lxd
+usermod --add-subuids $START_UID-$END_UID root
+
+# set users subguid
+usermod --add-subgids $START_GID-$END_GID lxd
+usermod --add-subgids $START_GID-$END_GID root
+
+# add each sudo user to the lxd group
+for u in $(getent group sudo | sed -e "s/^.*://" -e "s/,/ /g"); do adduser "$u" lxd >/dev/null || true; done
+
+# change dir ownership
+chown -R lxd:lxd /var/lib/lxd /var/log/lxd
+
+# start systemd services
+systemctl start lxcfs.service
+systemctl start lxd-containers.service
+systemctl start lxd.socket
+systemctl start lxd.service
+
+# clean mount to make LXD happy
+rm -rf /var/lib/lxd/storage-pools/default/lost+found/
+
+# configure lxd daemon
+cat <<EOF | lxd init --preseed
+config: {}
+networks: []
+storage_pools:
+- config: {}
+  description: ""
+  name: default
+  driver: dir
+profiles:
+- config:
+    limits.memory.enforce: hard
+    limits.memory.swap: "false"
+  description: ""
+  devices:
+    root:
+      path: /
+      pool: default
+      type: disk
+  name: default
+cluster: null
+EOF
+
+# create test ct
+lxc init ubuntu:18.04 test
+
+# disable apparmor in ct
+# lxc config set test raw.lxc lxc.apparmor.profile=unconfined
+
+# configuring ipvlan https://github.com/lxc/lxd/blob/master/doc/containers.md#nictype-ipvlan
+sysctl -w net.ipv4.conf.eno1.forwarding=1
+lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1
+lxc config device set test eth0 mtu 1500
+lxc config device set test eth0 ipv4.address IP
+
+# add fixed size disk (with project quota enabled)
+lxc config device add test root disk pool=default path=/
+lxc config device set test root size 8GB
+
+# set cpu limit
+lxc config set test limits.cpu 2
+
+# set memory limit
+lxc config set test limits.memory 1024MB
+lxc config set test limits.memory.enforce hard
+
+# disable swap
+lxc config set test limits.memory.swap false
+
+# set numproc limit
+lxc config set test limits.processes 600
+
+# start ct
+lxc start test
