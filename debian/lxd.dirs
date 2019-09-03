@@ -1,0 +1,12 @@
+etc/logrotate.d/
+etc/sysctl.d/
+lib/systemd/system/
+usr/bin/
+usr/lib/lxc/rootfs/
+usr/lib/lxcfs/
+usr/lib/lxd/
+usr/share/bash-completion/completions/
+usr/share/lxc/config/common.conf.d/
+usr/share/lxcfs/
+var/lib/lxcfs/
+var/log/lxd/

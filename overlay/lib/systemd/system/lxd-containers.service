@@ -1,0 +1,15 @@
+[Unit]
+Description=LXD - container startup/shutdown
+After=lxd.socket lxd.service
+Requires=lxd.socket
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/lxd activateifneeded
+ExecStop=/usr/bin/lxd shutdown
+TimeoutStartSec=600s
+TimeoutStopSec=600s
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+# reload systemd units
+systemctl --system daemon-reload >/dev/null || true
+
+# create needed directories
+mkdir -p /var/log/lxd /var/lib/lxcfs
+
+# change dir ownership
+chown -R lxd:lxd /var/lib/lxd /var/log/lxd
+
+# umask systemd units
+systemctl --system unmask lxcfs.service >/dev/null || true
+systemctl --system unmask lxd.socket >/dev/null || true
+systemctl --system unmask lxd.service >/dev/null || true
+systemctl --system unmask lxd-containers.service >/dev/null || true
+
+# enable systemd units
+systemctl --system enable lxcfs.service >/dev/null || true
+systemctl --system enable lxd.socket >/dev/null || true
+systemctl --system enable lxd.service >/dev/null || true
+systemctl --system enable lxd-containers.service >/dev/null || true
+
+exit 0

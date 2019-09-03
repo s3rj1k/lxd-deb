@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "purge" ]; then
+    rm --one-file-system -Rf /var/lib/lxd /var/log/lxd /var/lib/lxcfs || true
+    rm --one-file-system -f /lib/systemd/system/lxcfs.service /lib/systemd/system/lxd-containers.service /lib/systemd/system/lxd.service /lib/systemd/system/lxd.socket || true
+    systemctl --system daemon-reload >/dev/null || true
+fi
+
+exit 0

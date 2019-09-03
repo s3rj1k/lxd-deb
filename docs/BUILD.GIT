@@ -1,0 +1,119 @@
+cd /root
+
+apt-get install acl autoconf build-essential bzr checkinstall chrpath curl dnsmasq-base docbook2x doxygen ebtables gettext git help2man jq libacl1-dev libapparmor-dev libattr1-dev libcap-dev libfuse-dev libgnutls28-dev liblua5.2-dev libpam0g-dev libseccomp-dev libselinux-dev libtool libuv1-dev linux-libc-dev lvm2 make patchelf pkg-config rsync socat sqlite3 squashfs-tools tar tcl thin-provisioning-tools uuid-runtime xz-utils
+
+git clone https://github.com/lxc/lxc.git
+cd /root/lxc
+
+./autogen.sh
+./configure \
+	--prefix=/usr \
+	--libdir=/usr/lib/lxc \
+	--disable-api-docs \
+	--disable-bash \
+	--disable-commands \
+	--disable-doc \
+	--disable-examples \
+	--disable-memfd-rexec \
+	--disable-mutex-debugging \
+	--disable-pam \
+	--disable-rpath \
+	--disable-selinux \
+	--disable-static \
+	--disable-tests \
+	--disable-tools \
+	--enable-apparmor \
+	--enable-capabilities \
+	--enable-configpath-log \
+	--enable-seccomp \
+	--with-rootfs-path=/usr/lib/lxc/rootfs \
+	--with-distro=ubuntu \
+	--with-init-script=systemd \
+	--with-pamdir=/usr/lib/x86_64-linux-gnu/ \
+	--with-systemdsystemunitdir=/lib/systemd/system
+
+make
+make install
+cp /usr/lib/lxc/pkgconfig/lxc.pc /usr/lib/pkgconfig/lxc.pc
+# checkinstall make install
+
+cd /root
+
+git clone https://github.com/lxc/lxcfs.git
+cd /root/lxcfs
+
+./bootstrap.sh
+./configure \
+	--prefix=/usr \
+	--disable-static \
+	--with-rootfs-path=/usr/lib/lxc/rootfs \
+	--with-distro=ubuntu \
+	--with-init-script=systemd
+
+make
+# checkinstall make install
+
+cd /root
+
+wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz -O /root/go1.13.3.linux-amd64.tar.gz
+tar xvzf /root/go1.13.3.linux-amd64.tar.gz -C /usr/local
+export PATH=$PATH:/usr/local/go/bin
+
+go get -d -v github.com/lxc/lxd/lxd
+
+cd /root/go/src/github.com/lxc/lxd
+make deps
+
+export CGO_CFLAGS="-I/root/go/deps/sqlite/ -I/root/go/deps/libco/ -I/root/go/deps/raft/include/ -I/root/go/deps/dqlite/include/"
+export CGO_LDFLAGS="-L/root/go/deps/sqlite/.libs/ -L/root/go/deps/libco/ -L/root/go/deps/raft/.libs -L/root/go/deps/dqlite/.libs/"
+export LD_LIBRARY_PATH="/root/go/deps/sqlite/.libs/:/root/go/deps/libco/:/root/go/deps/raft/.libs/:/root/go/deps/dqlite/.libs/"
+
+wget https://raw.githubusercontent.com/s3rj1k/lxd-repack/master/docs/patches/0001-lxd-Add-temporary-variable-to-disable-shiftfs.patch
+patch -p1 < 0001-lxd-Add-temporary-variable-to-disable-shiftfs.patch
+
+make
+
+mkdir -p /root/lxd_distr/usr/bin /root/lxd_distr/usr/lib/lxd /root/lxd_distr/usr/lib/lxc /root/lxd_distr/usr/lib/lxcfs /root/lxd_distr/usr/share/bash-completion/completions
+
+cp -a /root/go/bin/fuidshift /root/lxd_distr/usr/bin/fuidshift
+cp -a /root/go/bin/lxc /root/lxd_distr/usr/bin/lxc
+cp -a /root/go/bin/lxd /root/lxd_distr/usr/bin/lxd
+cp -a /root/lxcfs/lxcfs /root/lxd_distr/usr/bin/lxcfs
+
+cp -a /root/go/deps/dqlite/.libs/libdqlite.so.0.0.1 /root/lxd_distr/usr/lib/lxd
+ln -s libdqlite.so.0.0.1 /root/lxd_distr/usr/lib/lxd/libdqlite.so.0
+ln -s libdqlite.so.0.0.1 /root/lxd_distr/usr/lib/lxd/libdqlite.so
+
+cp -a /root/go/deps/libco/libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd
+ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libco.so
+ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libco.so.0
+
+cp -a /root/go/deps/raft/.libs/libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd
+ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libraft.so.0
+ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libraft.so
+
+cp -a /root/go/deps/sqlite/.libs/libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd
+ln -s libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd/libsqlite3.so.0
+ln -s libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd/libsqlite3.so
+
+cp -a /usr/lib/lxc/liblxc.so.1.6.0 /root/lxd_distr/usr/lib/lxc/liblxc.so.1.6.0
+ln -s liblxc.so.1.6.0 /root/lxd_distr/usr/lib/lxc/liblxc.so.1
+ln -s liblxc.so.1.6.0 /root/lxd_distr/usr/lib/lxc/liblxc.so
+
+cp -a /root/lxcfs/.libs/liblxcfs.so /root/lxd_distr/usr/lib/lxcfs/liblxcfs.so
+
+cat /root/go/src/github.com/lxc/lxd/scripts/bash/lxd-client > /root/lxd_distr/usr/share/bash-completion/completions/lxc
+
+strip -s /root/lxd_distr/usr/lib/lxcfs/liblxcfs.so
+strip -s /root/lxd_distr/usr/lib/lxd/libraft.so.0.0.7
+strip -s /root/lxd_distr/usr/lib/lxd/libdqlite.so.0.0.1
+strip -s /root/lxd_distr/usr/lib/lxd/libco.so.0.1.0
+strip -s /root/lxd_distr/usr/lib/lxd/libsqlite3.so.0.8.6
+strip -s /root/lxd_distr/usr/lib/lxc/liblxc.so.1.6.0
+strip -s /root/lxd_distr/usr/bin/fuidshift
+strip -s /root/lxd_distr/usr/bin/lxcfs
+strip -s /root/lxd_distr/usr/bin/lxd
+strip -s /root/lxd_distr/usr/bin/lxc
+
+patchelf --set-rpath "/usr/lib/lxc:/usr/lib/lxd" "/root/lxd_distr/usr/bin/lxd"
+patchelf --set-rpath "/usr/lib/lxd" "/root/lxd_distr/usr/lib/lxd/libdqlite.so"
