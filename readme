@@ -79,7 +79,7 @@ lxc init ubuntu:18.04 test
 # disable apparmor in ct
 # lxc config set test raw.lxc lxc.apparmor.profile=unconfined
 
-# configuring ipvlan
+# configuring ipvlan, for ipvlan support https://github.com/lxc/lxc/releases/tag/lxc-3.0.4
 # https://github.com/lxc/lxd/blob/master/doc/containers.md#nictype-ipvlan
 sysctl -w net.ipv4.conf.eno1.forwarding=1
 lxc config device set test eth0 nictype ipvlan
