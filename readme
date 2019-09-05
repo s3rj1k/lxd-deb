@@ -1,4 +1,5 @@
 # https://packages.ubuntu.com/bionic/lxd
+# https://packages.ubuntu.com/bionic-updates/liblxc1
 
 # install packages
 apt install acl adduser git libacl1 liblxc1 libuv1 lxcfs passwd rsync squashfs-tools uidmap xdelta3 xz-utils
