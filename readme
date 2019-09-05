@@ -90,5 +90,11 @@ lxc config device set test eth0 name eth0
 lxc config device set test eth0 mtu 1500
 lxc config device set test eth0 ipv4.address IP
 
+# set project quota (add to xfs mount point, /etc/fstab, 'prjquota' option)
+lxc config device set test root type disk
+lxc config device set test root path /
+lxc config device set test root pool default
+lxc config device set test root size 8GB
+
 # start ct
 lxc start test
