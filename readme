@@ -83,17 +83,12 @@ lxc init ubuntu:18.04 test
 # configuring ipvlan, for ipvlan support https://github.com/lxc/lxc/releases/tag/lxc-3.0.4
 # https://github.com/lxc/lxd/blob/master/doc/containers.md#nictype-ipvlan
 sysctl -w net.ipv4.conf.eno1.forwarding=1
-lxc config device set test eth0 nictype ipvlan
-lxc config device set test eth0 parent eno1
-lxc config device set test eth0 type nic
-lxc config device set test eth0 name eth0
+lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1
 lxc config device set test eth0 mtu 1500
 lxc config device set test eth0 ipv4.address IP
 
 # set project quota (add to xfs mount point, /etc/fstab, 'prjquota' option)
-lxc config device set test root type disk
-lxc config device set test root path /
-lxc config device set test root pool default
+lxc config device add test root disk pool=default path=/
 lxc config device set test root size 8GB
 
 # start ct
