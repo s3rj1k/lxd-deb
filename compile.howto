@@ -1,4 +1,37 @@
-apt install acl autoconf btrfs-tools build-essential bzr curl dnsmasq-base ebtables gettext git jq libacl1-dev libapparmor-dev libcap-dev liblxc-dev liblxc1 libseccomp-dev libtool libuv1-dev lvm2 make patchelf pkg-config rsync socat sqlite3 squashfs-tools tar tcl thin-provisioning-tools uuid-runtime xz-utils
+cd ~
+
+apt install acl autoconf btrfs-tools build-essential bzr curl dnsmasq-base docbook2x doxygen ebtables gettext git jq libacl1-dev libapparmor-dev libcap-dev libgnutls28-dev liblua5.2-dev libpam0g-dev libseccomp-dev libselinux-dev libtool libuv1-dev linux-libc-dev lvm2 make patchelf pkg-config rsync socat sqlite3 squashfs-tools tar tcl thin-provisioning-tools uuid-runtime xz-utils
+
+wget https://github.com/lxc/lxc/archive/lxc-3.2.1.tar.gz -O /root/lxc-3.2.1.tar.gz
+tar xvzf /root/lxc-3.2.1.tar.gz -C /root/
+
+export LXC_BUILD_DIR=/root/lxc-lxc-3.2.1
+
+cd ${LXC_BUILD_DIR}
+
+./autogen.sh
+
+./configure \
+	--disable-rpath \
+	--enable-doc \
+	--enable-api-docs \
+	--enable-apparmor \
+	--enable-selinux \
+	--enable-capabilities \
+	--enable-examples \
+	--enable-pam \
+	--with-pamdir=/usr/lib/x86_64-linux-gnu/ \
+	--disable-mutex-debugging \
+	--enable-bash \
+	--enable-tests \
+	--enable-configpath-log \
+	--with-distro=debian \
+	--with-init-script=sysvinit,systemd \
+	--with-systemdsystemunitdir=/lib/systemd/system
+
+make
+
+cd ~
 
 wget https://dl.google.com/go/go1.12.10.linux-amd64.tar.gz -O /root/go1.12.10.linux-amd64.tar.gz
 tar xvzf /root/go1.12.10.linux-amd64.tar.gz -C /usr/local
@@ -12,9 +45,11 @@ export GOPATH=/root/lxd-3.18/_dist
 
 cd $GOPATH/src/github.com/lxc/lxd
 make deps
-export CGO_CFLAGS="-I${GOPATH}/deps/sqlite/ -I${GOPATH}/deps/libco/ -I${GOPATH}/deps/raft/include/ -I${GOPATH}/deps/dqlite/include/"
-export CGO_LDFLAGS="-L${GOPATH}/deps/sqlite/.libs/ -L${GOPATH}/deps/libco/ -L${GOPATH}/deps/raft/.libs -L${GOPATH}/deps/dqlite/.libs/"
-export LD_LIBRARY_PATH="${GOPATH}/deps/sqlite/.libs/:${GOPATH}/deps/libco/:${GOPATH}/deps/raft/.libs/:${GOPATH}/deps/dqlite/.libs/"
+
+export CGO_CFLAGS="-I${GOPATH}/deps/sqlite/ -I${GOPATH}/deps/libco/ -I${GOPATH}/deps/raft/include/ -I${GOPATH}/deps/dqlite/include/ -I${LXC_BUILD_DIR}/src/include/"
+export CGO_LDFLAGS="-L${GOPATH}/deps/sqlite/.libs/ -L${GOPATH}/deps/libco/ -L${GOPATH}/deps/raft/.libs -L${GOPATH}/deps/dqlite/.libs/ -L{LXC_BUILD_DIR}/src/lxc/.libs"
+export LD_LIBRARY_PATH="${GOPATH}/deps/sqlite/.libs/:${GOPATH}/deps/libco/:${GOPATH}/deps/raft/.libs/:${GOPATH}/deps/dqlite/.libs/:{LXC_BUILD_DIR}/src/lxc/.libs"
+
 make
 
 mkdir -p /root/lxd_distr/usr/bin
