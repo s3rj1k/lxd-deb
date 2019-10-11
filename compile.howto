@@ -30,10 +30,15 @@ mkdir -p /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/dqlite/.libs/libdqlite.so /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/dqlite/.libs/libdqlite.so.0 /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/dqlite/.libs/libdqlite.so.0.0.1 /root/lxd_distr/usr/lib/lxd
+
 cp -a $GOPATH/deps/libco/libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd
+ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libco.so
+ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libco.so.0
+
 cp -a $GOPATH/deps/raft/.libs/libraft.so /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/raft/.libs/libraft.so.0 /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/raft/.libs/libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd
+
 cp -a $GOPATH/deps/sqlite/.libs/libsqlite3.so /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/sqlite/.libs/libsqlite3.so.0 /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/sqlite/.libs/libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd
