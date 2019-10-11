@@ -1,14 +1,14 @@
 apt install acl autoconf btrfs-tools build-essential bzr curl dnsmasq-base ebtables gettext git jq libacl1-dev libapparmor-dev libcap-dev liblxc-dev liblxc1 libseccomp-dev libtool libuv1-dev lvm2 make patchelf pkg-config rsync socat sqlite3 squashfs-tools tar tcl thin-provisioning-tools uuid-runtime xz-utils
 
-wget https://dl.google.com/go/go1.12.9.linux-amd64.tar.gz -O /root/go1.12.9.linux-amd64.tar.gz
-tar xvzf /root/go1.12.9.linux-amd64.tar.gz -C /usr/local
+wget https://dl.google.com/go/go1.12.10.linux-amd64.tar.gz -O /root/go1.12.10.linux-amd64.tar.gz
+tar xvzf /root/go1.12.10.linux-amd64.tar.gz -C /usr/local
 
 export PATH=$PATH:/usr/local/go/bin
 
-wget https://github.com/lxc/lxd/releases/download/lxd-3.16/lxd-3.16.tar.gz -O /root/lxd-3.16.tar.gz
-tar xvzf /root/lxd-3.16.tar.gz -C /root/
+wget https://github.com/lxc/lxd/releases/download/lxd-3.18/lxd-3.18.tar.gz -O /root/lxd-3.18.tar.gz
+tar xvzf /root/lxd-3.18.tar.gz -C /root/
 
-export GOPATH=/root/lxd-3.16/_dist
+export GOPATH=/root/lxd-3.18/_dist
 
 cd $GOPATH/src/github.com/lxc/lxd
 make deps
@@ -30,7 +30,7 @@ mkdir -p /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/dqlite/.libs/libdqlite.so /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/dqlite/.libs/libdqlite.so.0 /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/dqlite/.libs/libdqlite.so.0.0.1 /root/lxd_distr/usr/lib/lxd
-cp -a $GOPATH/deps/libco/libco.so /root/lxd_distr/usr/lib/lxd
+cp -a $GOPATH/deps/libco/libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/raft/.libs/libraft.so /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/raft/.libs/libraft.so.0 /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/raft/.libs/libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd
