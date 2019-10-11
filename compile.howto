@@ -80,4 +80,8 @@ cp -a $GOPATH/deps/sqlite/.libs/libsqlite3.so /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/sqlite/.libs/libsqlite3.so.0 /root/lxd_distr/usr/lib/lxd
 cp -a $GOPATH/deps/sqlite/.libs/libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd
 
+cp -a /usr/local/lib/liblxc.so /root/lxd_distr/usr/lib/lxd/liblxc.so
+cp -a /usr/local/lib/liblxc.so.1 /root/lxd_distr/usr/lib/lxd/liblxc.so.1
+cp -a /usr/local/lib/liblxc.so.1.6.0 /root/lxd_distr/usr/lib/lxd/liblxc.so.1.6.0
+
 patchelf --set-rpath "/usr/lib/lxd" "/root/lxd_distr/usr/lib/lxd/libdqlite.so"
