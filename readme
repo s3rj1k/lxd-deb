@@ -9,9 +9,9 @@ apt install acl adduser git libacl1 liblxc1 libuv1 lxcfs passwd rsync squashfs-t
 git clone https://github.com/s3rj1k/lxd-repack.git
 
 # sync overlay
-rsync -avzh ./lxd-debain-repack/overlay/etc/ /etc
-rsync -avzh ./lxd-debain-repack/overlay/lib/ /lib
-rsync -avzh ./lxd-debain-repack/overlay/usr/ /usr
+rsync -avzh ./lxd-repack/overlay/etc/ /etc
+rsync -avzh ./lxd-repack/overlay/lib/ /lib
+rsync -avzh ./lxd-repack/overlay/usr/ /usr
 
 # create dirs
 mkdir -p /var/lib/lxd /var/log/lxd
