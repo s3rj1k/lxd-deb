@@ -31,6 +31,8 @@ cd ${LXC_BUILD_DIR}
 
 make
 
+make install
+
 cd ~
 
 wget https://dl.google.com/go/go1.12.10.linux-amd64.tar.gz -O /root/go1.12.10.linux-amd64.tar.gz
@@ -46,9 +48,9 @@ export GOPATH=/root/lxd-3.18/_dist
 cd $GOPATH/src/github.com/lxc/lxd
 make deps
 
-export CGO_CFLAGS="-I${GOPATH}/deps/sqlite/ -I${GOPATH}/deps/libco/ -I${GOPATH}/deps/raft/include/ -I${GOPATH}/deps/dqlite/include/ -I${LXC_BUILD_DIR}/src/include/"
-export CGO_LDFLAGS="-L${GOPATH}/deps/sqlite/.libs/ -L${GOPATH}/deps/libco/ -L${GOPATH}/deps/raft/.libs -L${GOPATH}/deps/dqlite/.libs/ -L{LXC_BUILD_DIR}/src/lxc/.libs"
-export LD_LIBRARY_PATH="${GOPATH}/deps/sqlite/.libs/:${GOPATH}/deps/libco/:${GOPATH}/deps/raft/.libs/:${GOPATH}/deps/dqlite/.libs/:{LXC_BUILD_DIR}/src/lxc/.libs"
+export CGO_CFLAGS="-I${GOPATH}/deps/sqlite/ -I${GOPATH}/deps/libco/ -I${GOPATH}/deps/raft/include/ -I${GOPATH}/deps/dqlite/include/"
+export CGO_LDFLAGS="-L${GOPATH}/deps/sqlite/.libs/ -L${GOPATH}/deps/libco/ -L${GOPATH}/deps/raft/.libs -L${GOPATH}/deps/dqlite/.libs/"
+export LD_LIBRARY_PATH="${GOPATH}/deps/sqlite/.libs/:${GOPATH}/deps/libco/:${GOPATH}/deps/raft/.libs/:${GOPATH}/deps/dqlite/.libs/"
 
 make
 
