@@ -59,6 +59,7 @@ mkdir -p /root/lxd_distr/usr/bin
 cp -a $GOPATH/bin/fuidshift /root/lxd_distr/usr/bin/fuidshift
 cp -a $GOPATH/bin/lxc /root/lxd_distr/usr/bin/lxc
 cp -a $GOPATH/bin/lxd /root/lxd_distr/usr/bin/lxd
+cp -a $GOPATH/bin/lxd-benchmark /root/lxd_distr/usr/bin/lxd-benchmark
 
 patchelf --set-rpath "/usr/lib/lxd" "/root/lxd_distr/usr/bin/lxd"
 
