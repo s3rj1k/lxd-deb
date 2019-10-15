@@ -14,7 +14,7 @@ rsync -avzh ./lxd-repack/overlay/lib/ /lib
 rsync -avzh ./lxd-repack/overlay/usr/ /usr
 
 # create dirs
-mkdir -p /var/lib/lxd /var/log/lxd /usr/local/lib/lxc/rootfs
+mkdir -p /var/lib/lxd /var/log/lxd /usr/lib/x86_64-linux-gnu/lxc/rootfs
 
 # reload systemd daemons
 systemctl daemon-reload
