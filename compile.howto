@@ -17,6 +17,7 @@ cd ${LXC_BUILD_DIR}
 	--disable-bash \
 	--disable-doc \
 	--disable-examples \
+	--disable-memfd-rexec \
 	--disable-mutex-debugging \
 	--disable-rpath \
 	--disable-tests \
@@ -24,13 +25,14 @@ cd ${LXC_BUILD_DIR}
 	--enable-apparmor \
 	--enable-capabilities \
 	--enable-configpath-log \
+	--enable-seccomp \
 	--enable-pam \
 	--enable-selinux \
 	--with-distro=debian \
 	--with-init-script=sysvinit,systemd \
 	--with-pamdir=/usr/lib/x86_64-linux-gnu/ \
 	--with-systemdsystemunitdir=/lib/systemd/system \
-	--with-rootfs-path=/usr/lib/x86_64-linux-gnu/lxc/rootfs
+	--with-rootfs-path=/usr/lib/x86_64-linux-gnu/lxc/
 
 make
 
