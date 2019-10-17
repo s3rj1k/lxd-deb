@@ -2,8 +2,8 @@
 # https://packages.ubuntu.com/bionic-updates/liblxc1
 
 # IMPORTANT, DO BEFORE INSTALL
-# add xfs partition with mount point on /var/lib/lxd
-# add 'prjquota' option to xfs mount point in /etc/fstab
+# mount xfs partition to /var/lib/lxd
+# add 'prjquota' mount option to xfs mount point in /etc/fstab
 
 # install packages
 apt install acl adduser binutils git libacl1 libuv1 lxcfs passwd rsync squashfs-tools uidmap xdelta3 xfsprogs xz-utils
@@ -91,7 +91,7 @@ lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1
 lxc config device set test eth0 mtu 1500
 lxc config device set test eth0 ipv4.address IP
 
-# add fixed size disk (with using project quota)
+# add fixed size disk (with project quota enabled)
 lxc config device add test root disk pool=default path=/
 lxc config device set test root size 8GB
 
