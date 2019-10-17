@@ -2,7 +2,7 @@
 # https://packages.ubuntu.com/bionic-updates/liblxc1
 
 # install packages
-apt install acl adduser binutils git libacl1 libuv1 lxcfs passwd rsync squashfs-tools uidmap xdelta3 xz-utils
+apt install acl adduser binutils git libacl1 libuv1 lxcfs passwd rsync squashfs-tools uidmap xdelta3 xfsprogs xz-utils
 # apt install liblxc1 dnsmasq-base ebtables iptables
 
 # clone binaries
