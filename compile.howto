@@ -32,7 +32,7 @@ cd ${LXC_BUILD_DIR}
 	--with-init-script=sysvinit,systemd \
 	--with-pamdir=/usr/lib/x86_64-linux-gnu/ \
 	--with-systemdsystemunitdir=/lib/systemd/system \
-	--with-rootfs-path=/usr/lib/x86_64-linux-gnu/lxc/
+	--with-rootfs-path=/var/lib/lxd/common/lxc/
 
 make
 
