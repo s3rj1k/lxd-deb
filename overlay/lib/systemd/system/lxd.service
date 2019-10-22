@@ -12,7 +12,7 @@ KillMode=process
 TimeoutStartSec=600s
 TimeoutStopSec=30s
 Restart=on-failure
-LimitNOFILE=1048576
+LimitNOFILE=infinity
 LimitNPROC=infinity
 TasksMax=infinity
 
