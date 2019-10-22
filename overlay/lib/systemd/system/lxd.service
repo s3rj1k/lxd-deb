@@ -14,6 +14,7 @@ TimeoutStopSec=30s
 Restart=on-failure
 LimitNOFILE=infinity
 LimitNPROC=infinity
+LimitFSIZE=infinity
 TasksMax=infinity
 
 [Install]
