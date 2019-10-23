@@ -1,0 +1,34 @@
+[Unit]
+Description=LXD - main daemon
+After=network-online.target openvswitch-switch.service lxcfs.service lxd.socket
+Requires=network-online.target lxcfs.service lxd.socket
+
+[Service]
+EnvironmentFile=-/etc/environment
+# ExecStartPre=/usr/lib/x86_64-linux-gnu/lxc/lxc-apparmor-load
+ExecStart=/usr/bin/lxd --group lxd --logfile=/var/log/lxd/lxd.log
+ExecStartPost=/usr/bin/lxd waitready --timeout=600
+KillMode=process
+TimeoutStartSec=600s
+TimeoutStopSec=30s
+Restart=on-failure
+LimitAS=infinity
+LimitCORE=infinity
+LimitCPU=infinity
+LimitDATA=infinity
+LimitFSIZE=infinity
+LimitLOCKS=infinity
+LimitMEMLOCK=infinity
+LimitMSGQUEUE=infinity
+LimitNICE=infinity
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitRSS=infinity
+LimitRTPRIO=infinity
+LimitRTTIME=infinity
+LimitSIGPENDING=infinity
+LimitSTACK=infinity
+TasksMax=infinity
+
+[Install]
+Also=lxd-containers.service lxd.socket
