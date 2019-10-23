@@ -5,6 +5,7 @@ Requires=network-online.target lxcfs.service lxd.socket
 
 [Service]
 EnvironmentFile=-/etc/environment
+Environment=LXD_SHIFTFS=false
 # ExecStartPre=/usr/lib/x86_64-linux-gnu/lxc/lxc-apparmor-load
 ExecStart=/usr/bin/lxd --group lxd --logfile=/var/log/lxd/lxd.log
 ExecStartPost=/usr/bin/lxd waitready --timeout=600

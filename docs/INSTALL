@@ -1,20 +1,22 @@
 # https://packages.ubuntu.com/bionic/lxd
-# https://packages.ubuntu.com/bionic-updates/liblxc1
-
-# IMPORTANT, DO BEFORE INSTALL
-# mount xfs partition to /var/lib/lxd
-# add 'prjquota' mount option to xfs mount point in /etc/fstab
 
 # install packages
-apt install acl adduser binutils git libacl1 libuv1 lxcfs passwd rsync squashfs-tools uidmap xdelta3 xfsprogs xz-utils
-# apt install liblxc1 dnsmasq-base ebtables iptables
+apt install acl adduser binutils git libacl1 libuv1 lxcfs passwd quota rsync squashfs-tools uidmap xdelta3 xfsprogs xz-utils
+
+# PROJECT QUOTA
+# enable quota on ext4 partition: 'tune2fs -O project,quota -Q prjquota /dev/md1'
+# check filesystem features: 'tune2fs -l /dev/md1 | grep features'
+# mount ext4 partition to '/var/lib/lxd/storage-pools/default' with 'prjquota' mount option (/etc/fstab)
+# get quota information: 'repquota -avugPs'
 
 # clone binaries
 git clone https://github.com/s3rj1k/lxd-repack.git
 
-# sync overlay
-rsync -avzh ./lxd-repack/overlay/etc/ /etc
-rsync -avzh ./lxd-repack/overlay/lib/ /lib
+# sync overlay configs
+rsync -avzh ./lxd-repack/configs/overlay/etc/ /etc
+rsync -avzh ./lxd-repack/configs/overlay/lib/ /lib
+
+# sync overlay binaries and libs
 rsync -avzh ./lxd-repack/overlay/usr/ /usr
 
 # create dirs
@@ -30,20 +32,20 @@ systemctl enable lxd.socket
 systemctl enable lxd-containers.service
 
 # create user and group
-adduser --system lxd --home /var/lib/lxd/ --shell /bin/false
 addgroup --system lxd
+adduser --system lxd --home /var/lib/lxd/ --shell /bin/false
 
 # get free user subuid/subgid
-cat /etc/subuid | awk -F":" '{print $2+$3}' | sort -urn | head -1 | awk '{print "StartUID:"$1" EndUID:"$1+65535}'
-cat /etc/subgid | awk -F":" '{print $2+$3}' | sort -urn | head -1 | awk '{print "StartGID:"$1" EndGID:"$1+65535}'
+export `cat /etc/subuid | awk -F":" '{print $2+$3}' | sort -urn | head -1 | awk '{print "START_UID="$1"\nEND_UID="$1+65535}'`
+export `cat /etc/subgid | awk -F":" '{print $2+$3}' | sort -urn | head -1 | awk '{print "START_GID="$1"\nEND_GID="$1+65535}'`
 
 # set users subuid
-usermod --add-subuids $StartUID-$EndUID lxd
-usermod --add-subuids $StartUID-$EndUID root
+usermod --add-subuids $START_UID-$END_UID lxd
+usermod --add-subuids $START_UID-$END_UID root
 
 # set users subguid
-usermod --add-subgids $StartGID-$EndGID lxd
-usermod --add-subgids $StartGID-$EndGID root
+usermod --add-subgids $START_GID-$END_GID lxd
+usermod --add-subgids $START_GID-$END_GID root
 
 # add each sudo user to the lxd group
 for u in $(getent group sudo | sed -e "s/^.*://" -e "s/,/ /g"); do adduser "$u" lxd >/dev/null || true; done
@@ -56,6 +58,9 @@ systemctl start lxcfs
 systemctl start lxd-containers.service
 systemctl start lxd.socket
 systemctl start lxd.service
+
+# clean mount to make LXD happy
+rm -rf /var/lib/lxd/storage-pools/default/lost+found/
 
 # configure lxd daemon
 cat <<EOF | lxd init --preseed
@@ -74,6 +79,7 @@ profiles:
       path: /
       pool: default
       type: disk
+      size: 128GB
   name: default
 cluster: null
 EOF
@@ -84,8 +90,7 @@ lxc init ubuntu:18.04 test
 # disable apparmor in ct
 # lxc config set test raw.lxc lxc.apparmor.profile=unconfined
 
-# configuring ipvlan, for ipvlan support https://github.com/lxc/lxc/releases/tag/lxc-3.0.4
-# https://github.com/lxc/lxd/blob/master/doc/containers.md#nictype-ipvlan
+# configuring ipvlan https://github.com/lxc/lxd/blob/master/doc/containers.md#nictype-ipvlan
 sysctl -w net.ipv4.conf.eno1.forwarding=1
 lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1
 lxc config device set test eth0 mtu 1500
