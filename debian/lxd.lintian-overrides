@@ -1,0 +1,5 @@
+lxd: hardening-no-pie *
+lxd: binary-without-manpage *
+lxd: maintainer-script-should-not-use-recursive-chown-or-chmod *
+lxd: package-has-unnecessary-activation-of-ldconfig-trigger
+lxd: maintainer-script-calls-systemctl *
