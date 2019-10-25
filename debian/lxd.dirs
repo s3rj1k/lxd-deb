@@ -7,3 +7,5 @@ usr/lib/lxcfs/
 usr/lib/lxd/
 usr/share/lxc/config/common.conf.d/
 usr/share/lxcfs/
+/var/lib/lxcfs/
+/var/log/lxd/
