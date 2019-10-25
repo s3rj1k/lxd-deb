@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+# reload systemd units
+systemctl --system daemon-reload >/dev/null || true
+
+# create needed directories
+mkdir -p /var/log/lxd /var/lib/lxcfs
+
+# change dir ownership
+chown -R lxd:lxd /var/lib/lxd /var/log/lxd
+
+exit 0

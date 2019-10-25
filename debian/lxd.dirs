@@ -1,0 +1,9 @@
+etc/logrotate.d/
+etc/sysctl.d/
+lib/systemd/system/
+usr/bin/
+usr/lib/lxc/rootfs/
+usr/lib/lxcfs/
+usr/lib/lxd/
+usr/share/lxc/config/common.conf.d/
+usr/share/lxcfs/

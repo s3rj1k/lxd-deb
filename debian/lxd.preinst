@@ -1,0 +1,71 @@
+#!/bin/sh
+set -e
+
+add_groups()
+{
+    if ! getent passwd lxd >/dev/null; then
+        adduser --system lxd --home /var/lib/lxd/ --shell /bin/false
+
+        # UID allocation
+        NEXT_UID=100000
+        while read line; do
+            OLD_IFS=$IFS
+            IFS=":"
+            set -- $line
+            IFS=$OLD_IFS
+
+            [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] && continue
+
+            LAST=$(($2+$3))
+            [ "$LAST" -gt "$NEXT_UID" ] && NEXT_UID=$LAST
+        done < /etc/subuid
+        usermod --add-subuids ${NEXT_UID}-$(($NEXT_UID+65535)) lxd
+        usermod --add-subuids ${NEXT_UID}-$(($NEXT_UID+65535)) root
+
+        # GID allocation
+        NEXT_GID=100000
+        while read line; do
+            OLD_IFS=$IFS
+            IFS=":"
+            set -- $line
+            IFS=$OLD_IFS
+
+            [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] && continue
+
+            LAST=$(($2+$3))
+            [ "$LAST" -gt "$NEXT_GID" ] && NEXT_GID=$LAST
+        done < /etc/subgid
+        usermod --add-subgids ${NEXT_GID}-$(($NEXT_GID+65535)) lxd
+        usermod --add-subgids ${NEXT_GID}-$(($NEXT_GID+65535)) root
+    fi
+
+    if ! getent group lxd >/dev/null; then
+        addgroup --system lxd
+    fi
+
+    # Add each admin user to the lxd group - for systems installed
+    # before precise
+    for u in $(getent group admin | sed -e "s/^.*://" -e "s/,/ /g"); do
+        adduser "$u" lxd >/dev/null || true
+    done
+
+    # Add each sudo user to the lxd group
+    for u in $(getent group sudo | sed -e "s/^.*://" -e "s/,/ /g"); do
+        adduser "$u" lxd >/dev/null || true
+    done
+}
+
+case "$1" in
+    install|upgrade)
+        add_groups
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        exit 1
+    ;;
+esac
+
+exit 0

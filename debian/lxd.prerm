@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "purge" ] ; then
+    systemctl --system stop lxd-containers.service >/dev/null || true
+    systemctl --system stop lxd.socket >/dev/null || true
+    systemctl --system stop lxd.service >/dev/null || true
+    systemctl --system stop lxcfs.service >/dev/null || true
+    systemctl --system daemon-reload >/dev/null || true
+fi
+
+exit 0
