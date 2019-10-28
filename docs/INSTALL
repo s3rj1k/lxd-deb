@@ -97,13 +97,13 @@ lxc config device set test eth0 ipv4.address IP
 
 # add fixed size disk (with project quota enabled)
 lxc config device add test root disk pool=default path=/
-lxc config device set test root size 8GB
+lxc config device set test root size 8GiB
 
 # set cpu limit
 lxc config set test limits.cpu 2
 
 # set memory limit
-lxc config set test limits.memory 1024MB
+lxc config set test limits.memory 1024MiB
 lxc config set test limits.memory.enforce hard
 
 # disable swap
