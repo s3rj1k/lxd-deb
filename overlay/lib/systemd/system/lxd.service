@@ -20,7 +20,6 @@ LimitFSIZE=infinity
 LimitLOCKS=infinity
 LimitMEMLOCK=infinity
 LimitMSGQUEUE=infinity
-LimitNICE=infinity
 LimitNOFILE=infinity
 LimitNPROC=infinity
 LimitRSS=infinity
