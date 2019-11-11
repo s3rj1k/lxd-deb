@@ -9,6 +9,8 @@ apt install acl adduser binutils fuse git libacl1 libuv1 passwd quota rsync squa
 # mount ext4 partition to '/var/lib/lxd/storage-pools/default' with 'prjquota' mount option (/etc/fstab)
 # get quota information: 'repquota -avugPs'
 
+# Optionally disable CGroup v2 via kernel boot params: systemd.unified_cgroup_hierarchy=0 
+
 # clone binaries
 git clone https://github.com/s3rj1k/lxd-repack.git
 
