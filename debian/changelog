@@ -1,11 +1,11 @@
-lxd (3.18-99) UNRELEASED; urgency=low
+lxd (3.19-99) UNRELEASED; urgency=low
 
   * Initial LXD repack
 
- -- s3rj1k <evasive.gyron@gmail.com>  Fri, 25 Oct 2019 15:50:00 +0200
+ -- s3rj1k <evasive.gyron@gmail.com>  Mon, 20 Jan 2020 15:50:00 +0200
 
-lxd (3.18-0) UNRELEASED; urgency=low
+lxd (3.19-0) UNRELEASED; urgency=low
 
   * Fake release
 
- -- s3rj1k <evasive.gyron@gmail.com>  Fri, 25 Oct 2019 12:50:00 +0200
+ -- s3rj1k <evasive.gyron@gmail.com>  Mon, 20 Jan 2020 15:00:00 +0200

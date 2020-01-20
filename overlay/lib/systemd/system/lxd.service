@@ -5,7 +5,7 @@ Requires=network-online.target lxcfs.service lxd.socket
 
 [Service]
 EnvironmentFile=-/etc/environment
-Environment=LXD_SHIFTFS=false
+Environment=LXD_SHIFTFS_DISABLE=true
 ExecStart=/usr/bin/lxd --group lxd --logfile=/var/log/lxd/lxd.log
 ExecStartPost=/usr/bin/lxd waitready --timeout=600
 KillMode=process

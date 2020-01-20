@@ -55,8 +55,8 @@ make
 
 cd /root
 
-wget https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz -O /root/go1.13.4.linux-amd64.tar.gz
-tar xvzf /root/go1.13.4.linux-amd64.tar.gz -C /usr/local
+wget https://dl.google.com/go/go1.13.6.linux-amd64.tar.gz -O /root/go1.13.6.linux-amd64.tar.gz
+tar xvzf /root/go1.13.6.linux-amd64.tar.gz -C /usr/local
 export PATH=$PATH:/usr/local/go/bin
 
 go get -d -v github.com/lxc/lxd/lxd
@@ -89,8 +89,8 @@ ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libco.so
 ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libco.so.0
 
 cp -a /root/go/deps/raft/.libs/libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd
-ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libraft.so.0
-ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libraft.so
+ln -s libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd/libraft.so.0
+ln -s libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd/libraft.so
 
 cp -a /root/go/deps/sqlite/.libs/libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd
 ln -s libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd/libsqlite3.so.0

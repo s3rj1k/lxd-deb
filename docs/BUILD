@@ -61,13 +61,13 @@ make
 
 cd /root
 
-wget https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz -O /root/go1.13.4.linux-amd64.tar.gz
-tar xvzf /root/go1.13.4.linux-amd64.tar.gz -C /usr/local
+wget https://dl.google.com/go/go1.13.6.linux-amd64.tar.gz -O /root/go1.13.6.linux-amd64.tar.gz
+tar xvzf /root/go1.13.6.linux-amd64.tar.gz -C /usr/local
 export PATH=$PATH:/usr/local/go/bin
 
-wget https://github.com/lxc/lxd/releases/download/lxd-3.18/lxd-3.18.tar.gz -O /root/lxd-3.18.tar.gz
-tar xvzf /root/lxd-3.18.tar.gz -C /root/
-export GOPATH=/root/lxd-3.18/_dist
+wget https://github.com/lxc/lxd/releases/download/lxd-3.19/lxd-3.19.tar.gz -O /root/lxd-3.19.tar.gz
+tar xvzf /root/lxd-3.19.tar.gz -C /root/
+export GOPATH=/root/lxd-3.19/_dist
 
 cd $GOPATH/src/github.com/lxc/lxd
 make deps
@@ -75,9 +75,7 @@ make deps
 export CGO_CFLAGS="-I${GOPATH}/deps/sqlite/ -I${GOPATH}/deps/libco/ -I${GOPATH}/deps/raft/include/ -I${GOPATH}/deps/dqlite/include/"
 export CGO_LDFLAGS="-L${GOPATH}/deps/sqlite/.libs/ -L${GOPATH}/deps/libco/ -L${GOPATH}/deps/raft/.libs -L${GOPATH}/deps/dqlite/.libs/"
 export LD_LIBRARY_PATH="${GOPATH}/deps/sqlite/.libs/:${GOPATH}/deps/libco/:${GOPATH}/deps/raft/.libs/:${GOPATH}/deps/dqlite/.libs/"
-
-wget https://raw.githubusercontent.com/s3rj1k/lxd-repack/master/docs/patches/0001-lxd-Add-temporary-variable-to-disable-shiftfs.patch
-patch -p1 < 0001-lxd-Add-temporary-variable-to-disable-shiftfs.patch
+export CGO_LDFLAGS_ALLOW="-Wl,-wrap,pthread_create"
 
 make
 
@@ -97,8 +95,8 @@ ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libco.so
 ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libco.so.0
 
 cp -a $GOPATH/deps/raft/.libs/libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd
-ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libraft.so.0
-ln -s libco.so.0.1.0 /root/lxd_distr/usr/lib/lxd/libraft.so
+ln -s libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd/libraft.so.0
+ln -s libraft.so.0.0.7 /root/lxd_distr/usr/lib/lxd/libraft.so
 
 cp -a $GOPATH/deps/sqlite/.libs/libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd
 ln -s libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd/libsqlite3.so.0
@@ -110,7 +108,7 @@ ln -s liblxc.so.1.6.0 /root/lxd_distr/usr/lib/lxc/liblxc.so
 
 cp -a /root/lxcfs-3.1.2/.libs/liblxcfs.so /root/lxd_distr/usr/lib/lxcfs/liblxcfs.so
 
-cat /root/go/src/github.com/lxc/lxd/scripts/bash/lxd-client > /root/lxd_distr/usr/share/bash-completion/completions/lxc
+cat $GOPATH/src/github.com/lxc/lxd/scripts/bash/lxd-client > /root/lxd_distr/usr/share/bash-completion/completions/lxc
 
 strip -s /root/lxd_distr/usr/lib/lxcfs/liblxcfs.so
 strip -s /root/lxd_distr/usr/lib/lxd/libraft.so.0.0.7
