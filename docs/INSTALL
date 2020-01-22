@@ -96,6 +96,7 @@ sysctl -w net.ipv4.conf.eno1.forwarding=1
 lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1
 lxc config device set test eth0 mtu 1500
 lxc config device set test eth0 ipv4.address IP
+lxc config device add test resolvconf disk path=/etc/resolv.conf source=/etc/resolv.conf
 
 # add fixed size disk (with project quota enabled)
 lxc config device add test root disk pool=default path=/
