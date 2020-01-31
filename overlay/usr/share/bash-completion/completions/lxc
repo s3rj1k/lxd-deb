@@ -60,8 +60,9 @@ _have lxc && {
       return 0
     fi
 
-    lxc_cmds="config copy delete exec file finger help image info init launch \
-      list manpage monitor move network profile project publish query remote rename \
+    lxc_cmds="alias cluster config console copy delete exec export file \
+      help image import info init launch list manpage monitor move network \
+      operation pause profile project publish query remote rename \
       restart restore shell snapshot start stop storage version"
 
     global_keys="backups.compression_algorithm,
@@ -83,21 +84,23 @@ _have lxc && {
       boot.host_shutdown_timeout environment. \
       limits.cpu limits.cpu.allowance limits.cpu.priority \
       limits.disk.priority limits.memory limits.memory.enforce \
-      limits.kernel \
+      limits.memory.hugepages limits.kernel \
       limits.memory.swap limits.memory.swap.priority limits.network.priority \
       limits.processes linux.kernel_modules migration.incremental.memory \
       migration.incremental.memory.goal nvidia.runtime \
       nvidia.driver.capabilities nvidia.require.cuda nvidia.require.driver \
-      migration.incremental.memory.iterations raw.apparmor raw.idmap raw.lxc \
-      raw.seccomp security.idmap.base security.idmap.isolated \
+      migration.incremental.memory.iterations raw.apparmor raw.idmap raw.qemu \
+      raw.lxc raw.seccomp security.idmap.base security.idmap.isolated \
       security.idmap.size security.devlxd security.devlxd.images \
       security.nesting security.privileged security.protection.delete \
-      security.protection.shift security.syscalls.blacklist \
+      security.protection.shift security.secureboot \
+      security.syscalls.blacklist \
       security.syscalls.blacklist_compat security.syscalls.blacklist_default \
       security.syscalls.intercept.mknod security.syscalls.intercept.mount \
       security.syscalls.intercept.mount.allowed \
+      security.syscalls.intercept.mount.fuse \
       security.syscalls.intercept.setxattr \
-      security.syscall.intercept.mount.shift \
+      security.syscalls.intercept.mount.shift \
       snapshots.schedule snapshots.schedule.stopped snapshots.pattern \
       snapshots.expiry \
       volatile.apply_quota volatile.apply_template volatile.base_image \
@@ -111,7 +114,8 @@ _have lxc && {
       security.ipv4_filtering security.ipv6_filtering vlan limits.read \
       limits.write path source optional readonly size recursive pool \
       propagation shift major minor uid gid mode required vendorid productid \
-      pci id listen connect bind nat proxy_protocol security.uid security.gid"
+      pci id listen connect bind nat proxy_protocol security.uid security.gid \
+      boot.priority"
 
     networks_keys="bridge.driver bridge.external_interfaces bridge.mode \
       bridge.mtu bridge.hwaddr dns.domain dns.mode fan.overlay_subnet fan.type \
