@@ -1,8 +1,8 @@
-lxd (3.19-99) UNRELEASED; urgency=low
+lxd (3.20-99) UNRELEASED; urgency=low
 
-  * Initial LXD repack
+  * New LXD version LXD
 
- -- s3rj1k <evasive.gyron@gmail.com>  Mon, 20 Jan 2020 15:50:00 +0200
+ -- s3rj1k <evasive.gyron@gmail.com>  Fri, 31 Jan 2020 15:50:00 +0200
 
 lxd (3.19-0) UNRELEASED; urgency=low
 
