@@ -7,7 +7,7 @@ Standards-Version: 3.9.6
 
 Package: lxd
 Architecture: amd64
-Depends: ${shlibs:Depends}, acl, adduser, binutils, fuse, iproute2, libacl1, libc6, libuv1, lsb-base, passwd, quota, rsync, squashfs-tools, uidmap, xdelta3, xfsprogs, xz-utils
+Depends: ${shlibs:Depends}, acl, adduser, binutils, fuse, iproute2, libacl1, libc6, libuv1, lsb-base, libudev1, passwd, quota, rsync, squashfs-tools, uidmap, xdelta3, xfsprogs, xz-utils
 Suggests: bash-completion, dnsmasq-base, ebtables, iptables
 Description: Container hypervisor based on LXC
  This package contains the LXD daemon, CLI, LXCFS daemon, LXC library.
