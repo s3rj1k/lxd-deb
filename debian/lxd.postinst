@@ -8,7 +8,7 @@ systemctl --system daemon-reload >/dev/null || true
 mkdir -p /var/log/lxd /var/lib/lxcfs
 
 # change dir ownership
-chown -R lxd:lxd /var/lib/lxd /var/log/lxd
+chown lxd:lxd /var/lib/lxd /var/log/lxd
 
 # umask systemd units
 systemctl --system unmask lxcfs.service >/dev/null || true
