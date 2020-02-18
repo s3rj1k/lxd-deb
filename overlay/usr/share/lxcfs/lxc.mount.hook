@@ -14,7 +14,7 @@ done
 # We're dealing with mount entries, so expand any symlink
 LXC_ROOTFS_MOUNT=$(readlink -f ${LXC_ROOTFS_MOUNT})
 
-# remount /proc for better security, adding hidepid=2 option
+# Remount /proc for better security, adding hidepid=2 option
 mount -o remount,rw,nosuid,nodev,noexec,relatime,hidepid=2 ${LXC_ROOTFS_MOUNT}/proc
 
 # /proc files
