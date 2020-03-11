@@ -1,8 +1,8 @@
-lxd (3.21-99) UNRELEASED; urgency=low
+lxd (3.22-99) UNRELEASED; urgency=low
 
   * New LXD version LXD
 
- -- s3rj1k <evasive.gyron@gmail.com>  Fri, 14 Feb 2020 15:50:00 +0200
+ -- s3rj1k <evasive.gyron@gmail.com>  Wed, 11 Mar 2020 17:50:00 +0200
 
 lxd (3.19-0) UNRELEASED; urgency=low
 
