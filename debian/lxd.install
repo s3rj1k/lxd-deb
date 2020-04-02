@@ -10,7 +10,7 @@ overlay/usr/bin/lxcfs usr/bin
 overlay/usr/bin/lxd usr/bin
 overlay/usr/lib/lxc/liblxc.so usr/lib/lxc
 overlay/usr/lib/lxc/liblxc.so.1 usr/lib/lxc
-overlay/usr/lib/lxc/liblxc.so.1.6.0 usr/lib/lxc
+overlay/usr/lib/lxc/liblxc.so.1.7.0 usr/lib/lxc
 overlay/usr/lib/lxc/rootfs/README usr/lib/lxc/rootfs
 overlay/usr/lib/lxcfs/liblxcfs.so usr/lib/lxcfs
 overlay/usr/lib/lxd/libco.so usr/lib/lxd

@@ -2,9 +2,9 @@ cd /root
 
 apt-get install acl autoconf build-essential bzr checkinstall chrpath curl dnsmasq-base docbook2x doxygen ebtables gettext git help2man jq libacl1-dev libapparmor-dev libattr1-dev libcap-dev libfuse-dev libgnutls28-dev liblua5.2-dev libpam0g-dev libseccomp-dev libselinux-dev libtool libuv1-dev linux-libc-dev lvm2 make patchelf pkg-config rsync socat sqlite3 squashfs-tools tar tcl thin-provisioning-tools uuid-runtime xz-utils libudev-dev
 
-wget https://github.com/lxc/lxc/archive/lxc-3.2.1.tar.gz -O /root/lxc-3.2.1.tar.gz
-tar xvzf /root/lxc-3.2.1.tar.gz -C /root/
-export LXC_BUILD_DIR=/root/lxc-lxc-3.2.1
+wget https://github.com/lxc/lxc/archive/lxc-4.0.0.tar.gz -O /root/lxc-4.0.0.tar.gz
+tar xvzf /root/lxc-4.0.0.tar.gz -C /root/
+export LXC_BUILD_DIR=/root/lxc-lxc-4.0.0
 
 cd ${LXC_BUILD_DIR}
 
@@ -65,9 +65,9 @@ wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gz -O /root/go1.14.1.linu
 tar xvzf /root/go1.14.1.linux-amd64.tar.gz -C /usr/local
 export PATH=$PATH:/usr/local/go/bin
 
-wget https://github.com/lxc/lxd/releases/download/lxd-3.23/lxd-3.23.tar.gz -O /root/lxd-3.23.tar.gz
-tar xvzf /root/lxd-3.23.tar.gz -C /root/
-export GOPATH=/root/lxd-3.23/_dist
+wget https://github.com/lxc/lxd/releases/download/lxd-4.0.0/lxd-4.0.0.tar.gz -O /root/lxd-4.0.0.tar.gz
+tar xvzf /root/lxd-4.0.0.tar.gz -C /root/
+export GOPATH=/root/lxd-4.0.0/_dist
 
 cd $GOPATH/src/github.com/lxc/lxd
 make deps
@@ -102,9 +102,9 @@ cp -a $GOPATH/deps/sqlite/.libs/libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd
 ln -s libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd/libsqlite3.so.0
 ln -s libsqlite3.so.0.8.6 /root/lxd_distr/usr/lib/lxd/libsqlite3.so
 
-cp -a /usr/lib/lxc/liblxc.so.1.6.0 /root/lxd_distr/usr/lib/lxc/liblxc.so.1.6.0
-ln -s liblxc.so.1.6.0 /root/lxd_distr/usr/lib/lxc/liblxc.so.1
-ln -s liblxc.so.1.6.0 /root/lxd_distr/usr/lib/lxc/liblxc.so
+cp -a /usr/lib/lxc/liblxc.so.1.7.0 /root/lxd_distr/usr/lib/lxc/liblxc.so.1.7.0
+ln -s liblxc.so.1.7.0 /root/lxd_distr/usr/lib/lxc/liblxc.so.1
+ln -s liblxc.so.1.7.0 /root/lxd_distr/usr/lib/lxc/liblxc.so
 
 cp -a /root/lxcfs-4.0.1/src/.libs/liblxcfs.so /root/lxd_distr/usr/lib/lxcfs/liblxcfs.so
 
@@ -115,7 +115,7 @@ strip -s /root/lxd_distr/usr/lib/lxd/libraft.so.0.0.7
 strip -s /root/lxd_distr/usr/lib/lxd/libdqlite.so.0.0.1
 strip -s /root/lxd_distr/usr/lib/lxd/libco.so.0.1.0
 strip -s /root/lxd_distr/usr/lib/lxd/libsqlite3.so.0.8.6
-strip -s /root/lxd_distr/usr/lib/lxc/liblxc.so.1.6.0
+strip -s /root/lxd_distr/usr/lib/lxc/liblxc.so.1.7.0
 strip -s /root/lxd_distr/usr/bin/fuidshift
 strip -s /root/lxd_distr/usr/bin/lxcfs
 strip -s /root/lxd_distr/usr/bin/lxd
