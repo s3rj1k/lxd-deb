@@ -84,6 +84,7 @@ profiles:
     root:
       path: /
       pool: default
+      size: 1EiB
       type: disk
   name: default
 cluster: null
