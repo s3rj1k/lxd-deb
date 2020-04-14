@@ -102,9 +102,13 @@ sysctl -w net.ipv4.conf.eno1.forwarding=1
 # sysctl -w net.ipv4.conf.eno1.proxy_arp_pvlan=1
 sysctl -w net.ipv4.conf.eno1.rp_filter=0
 
+# configuring ipvlan for IPv6 (if it needed)
+sysctl -w net.ipv6.conf.eno1.proxy_ndp=1
+
 lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1
 lxc config device set test eth0 mtu 1500
 lxc config device set test eth0 ipv4.address IP
+# lxc config device set test eth0 ipv6.address IP
 lxc config device add test resolvconf disk path=/etc/resolv.conf source=/etc/resolv.conf readonly=true
 
 # add fixed size disk (with project quota enabled)
