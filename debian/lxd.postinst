@@ -5,7 +5,7 @@ set -e
 systemctl --system daemon-reload >/dev/null || true
 
 # create needed directories
-mkdir -p /var/log/lxd /var/lib/lxcfs
+mkdir -p /var/log/lxd /var/lib/lxcfs /var/lib/lxd
 
 # change dir ownership
 chown lxd:lxd /var/lib/lxd /var/log/lxd
