@@ -9,4 +9,5 @@ usr/share/bash-completion/completions/
 usr/share/lxc/config/common.conf.d/
 usr/share/lxcfs/
 var/lib/lxcfs/
+var/lib/lxd/
 var/log/lxd/

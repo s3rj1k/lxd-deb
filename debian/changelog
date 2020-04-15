@@ -1,3 +1,9 @@
+lxd (4.0.0-100) UNRELEASED; urgency=low
+
+  * Updates LXC, LXCFS version
+
+ -- s3rj1k <evasive.gyron@gmail.com>  Wed, 15 Apr 2020 13:50:00 +0200
+
 lxd (4.0.0-99) UNRELEASED; urgency=low
 
   * New LXD version LXD
