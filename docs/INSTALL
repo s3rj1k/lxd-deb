@@ -136,3 +136,6 @@ lxc config set test limits.processes 600
 
 # start ct
 lxc start test
+
+# debug
+lxc config set test raw.lxc lxc.log.level=TRACE
