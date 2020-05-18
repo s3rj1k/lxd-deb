@@ -11,7 +11,8 @@ apt install acl adduser binutils fuse git libacl1 libuv1 passwd quota rsync squa
 
 # Add custom mount options 'lazytime,nouser_xattr,noacl' to '/var/lib/lxd/storage-pools/default' partition (/etc/fstab)
 
-# Enable hardlinks/symlinks protection: add 'fs.protected_hardlinks = 1' and 'fs.protected_symlinks = 1' to /etc/sysctl.d/protect-links.conf
+# Enable hardlinks/symlinks protection: add 'fs.protected_hardlinks = 1' and 'fs.protected_symlinks = 1' to /etc/sysctl.d/10-link-restrictions.conf
+# In releases, older than ubuntu 20.04 hardlinks/symlinks protection enables in /etc/sysctl.d/protect-links.conf
 
 # Optionally disable CGroup v2 via kernel boot params: systemd.unified_cgroup_hierarchy=0 
 
@@ -111,10 +112,8 @@ sysctl -w net.ipv6.neigh.default.gc_thresh1 = 2048
 sysctl -w net.ipv6.neigh.default.gc_thresh2 = 4096
 sysctl -w net.ipv6.neigh.default.gc_thresh3 = 8192
 
-lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1
-lxc config device set test eth0 mtu 1500
-lxc config device set test eth0 ipv4.address IP
-# lxc config device set test eth0 ipv6.address IP
+lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1 mtu=1500 ipv4.address="IP"
+# lxc config device set test eth0 ipv6.address="IP"
 lxc config device add test resolvconf disk path=/etc/resolv.conf source=/etc/resolv.conf readonly=true
 
 # add fixed size disk (with project quota enabled)
