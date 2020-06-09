@@ -61,13 +61,13 @@ make
 
 cd /root
 
-wget https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O /root/go1.14.2.linux-amd64.tar.gz
-tar xvzf /root/go1.14.2.linux-amd64.tar.gz -C /usr/local
+wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz -O /root/go1.14.4.linux-amd64.tar.gz
+tar xvzf /root/go1.14.4.linux-amd64.tar.gz -C /usr/local
 export PATH=$PATH:/usr/local/go/bin
 
-wget https://github.com/lxc/lxd/releases/download/lxd-4.1/lxd-4.1.tar.gz -O /root/lxd-4.1.tar.gz
-tar xvzf /root/lxd-4.1.tar.gz -C /root/
-export GOPATH=/root/lxd-4.1/_dist
+wget https://github.com/lxc/lxd/releases/download/lxd-4.2/lxd-4.2.tar.gz -O /root/lxd-4.2.tar.gz
+tar xvzf /root/lxd-4.2.tar.gz -C /root/
+export GOPATH=/root/lxd-4.2/_dist
 
 cd $GOPATH/src/github.com/lxc/lxd
 make deps
