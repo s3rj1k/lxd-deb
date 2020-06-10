@@ -1,0 +1,5 @@
+#!/bin/sh -e
+mkdir -p /sys/fs/cgroup/cpuset/lxc.pivot
+grep -oP '(?<=Cpus_allowed_list:\t).+' /proc/self/status > /sys/fs/cgroup/cpuset/lxc.pivot/cpuset.cpus
+grep -oP '(?<=Mems_allowed_list:\t).+' /proc/self/status > /sys/fs/cgroup/cpuset/lxc.pivot/cpuset.mems
+exit 0

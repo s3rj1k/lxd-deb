@@ -27,5 +27,6 @@ overlay/usr/lib/lxd/libsqlite3.so.0 usr/lib/lxd
 overlay/usr/lib/lxd/libsqlite3.so.0.8.6 usr/lib/lxd
 overlay/usr/share/bash-completion/completions/lxc usr/share/bash-completion/completions
 overlay/usr/share/lxc/config/common.conf.d/00-lxcfs.conf usr/share/lxc/config/common.conf.d
+overlay/usr/share/lxcfs/lxc.start.hook usr/share/lxcfs
 overlay/usr/share/lxcfs/lxc.mount.hook usr/share/lxcfs
 overlay/usr/share/lxcfs/lxc.reboot.hook usr/share/lxcfs
