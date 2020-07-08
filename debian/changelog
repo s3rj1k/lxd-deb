@@ -1,11 +1,11 @@
-lxd (4.2.0-100) UNRELEASED; urgency=low
+lxd (4.3.0-100) UNRELEASED; urgency=low
 
-  * New LXD version LXD, fix lxc.pivot bug
+  * New LXD version LXD
 
- -- s3rj1k <evasive.gyron@gmail.com>  Wed, 10 Jun 2020 18:50:00 +0300
+ -- s3rj1k <evasive.gyron@gmail.com>  Wed, 08 Jul 2020 18:50:00 +0300
 
-lxd (4.1.0-0) UNRELEASED; urgency=low
+lxd (4.3.0-0) UNRELEASED; urgency=low
 
   * Fake release
 
- -- s3rj1k <evasive.gyron@gmail.com>  Tue, 12 May 2020 13:50:00 +0300
+ -- s3rj1k <evasive.gyron@gmail.com>  Wed, 08 Jul 2020 13:50:00 +0300
