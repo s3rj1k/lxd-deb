@@ -1,3 +1,11 @@
+lxd (4.5.0-100) UNRELEASED; urgency=low
+
+  * New LXD version
+  * New LXC version
+  * New lxcfs version
+
+ -- kaut <maksimkaut92@gmail.com>  Tue, 01 Sep 2020 18:50:00 +0300
+
 lxd (4.3.0-100) UNRELEASED; urgency=low
 
   * New LXD version LXD
