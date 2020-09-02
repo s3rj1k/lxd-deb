@@ -42,11 +42,11 @@ cp /usr/lib/lxc/pkgconfig/lxc.pc /usr/lib/pkgconfig/lxc.pc
 
 cd /root
 
-wget https://github.com/lxc/lxcfs/archive/lxcfs-4.0.4.tar.gz -O /root/lxcfs-4.0.4.tar.gz
-mkdir -p /root/lxcfs-4.0.4
-tar xvzf /root/lxcfs-4.0.4.tar.gz --strip-components=1 -C /root/lxcfs-4.0.4
+wget https://github.com/lxc/lxcfs/archive/lxcfs-4.0.5.tar.gz -O /root/lxcfs-4.0.5.tar.gz
+mkdir -p /root/lxcfs-4.0.5
+tar xvzf /root/lxcfs-4.0.5.tar.gz --strip-components=1 -C /root/lxcfs-4.0.5
 
-cd /root/lxcfs-4.0.4
+cd /root/lxcfs-4.0.5
 
 ./bootstrap.sh
 ./configure \
@@ -84,7 +84,7 @@ mkdir -p /root/lxd_distr/usr/bin /root/lxd_distr/usr/lib/lxd /root/lxd_distr/usr
 cp -a $GOPATH/bin/fuidshift /root/lxd_distr/usr/bin/fuidshift
 cp -a $GOPATH/bin/lxc /root/lxd_distr/usr/bin/lxc
 cp -a $GOPATH/bin/lxd /root/lxd_distr/usr/bin/lxd
-cp -a /root/lxcfs-4.0.4/src/lxcfs /root/lxd_distr/usr/bin/lxcfs
+cp -a /root/lxcfs-4.0.5/src/lxcfs /root/lxd_distr/usr/bin/lxcfs
 
 cp -a $GOPATH/deps/dqlite/.libs/libdqlite.so.0.0.1 /root/lxd_distr/usr/lib/lxd
 ln -s libdqlite.so.0.0.1 /root/lxd_distr/usr/lib/lxd/libdqlite.so.0
@@ -106,7 +106,7 @@ cp -a /usr/lib/lxc/liblxc.so.1.7.0 /root/lxd_distr/usr/lib/lxc/liblxc.so.1.7.0
 ln -s liblxc.so.1.7.0 /root/lxd_distr/usr/lib/lxc/liblxc.so.1
 ln -s liblxc.so.1.7.0 /root/lxd_distr/usr/lib/lxc/liblxc.so
 
-cp -a /root/lxcfs-4.0.4/src/.libs/liblxcfs.so /root/lxd_distr/usr/lib/lxcfs/liblxcfs.so
+cp -a /root/lxcfs-4.0.5/src/.libs/liblxcfs.so /root/lxd_distr/usr/lib/lxcfs/liblxcfs.so
 
 cat $GOPATH/src/github.com/lxc/lxd/scripts/bash/lxd-client > /root/lxd_distr/usr/share/bash-completion/completions/lxc
 
