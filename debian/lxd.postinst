@@ -28,4 +28,7 @@ systemctl --system start lxd.socket >/dev/null || true
 systemctl --system start lxd.service >/dev/null || true
 systemctl --system start lxd-containers.service >/dev/null || true
 
+# restart systemd unit
+systemctl restart lxd.service >/dev/null || true
+
 exit 0
