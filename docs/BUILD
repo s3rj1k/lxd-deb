@@ -123,3 +123,6 @@ strip -s /root/lxd_distr/usr/bin/lxc
 
 patchelf --set-rpath "/usr/lib/lxc:/usr/lib/lxd" "/root/lxd_distr/usr/bin/lxd"
 patchelf --set-rpath "/usr/lib/lxd" "/root/lxd_distr/usr/lib/lxd/libdqlite.so"
+
+# If you want to disable hidepid on /proc inside CT, remove hidepid=2 mount option in overlay/usr/share/lxcfs/lxc.mount.hook:
+# mount -o remount,rw,nosuid,nodev,noexec,relatime,hidepid=2 ${LXC_ROOTFS_MOUNT}/proc
