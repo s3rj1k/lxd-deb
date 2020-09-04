@@ -126,3 +126,11 @@ patchelf --set-rpath "/usr/lib/lxd" "/root/lxd_distr/usr/lib/lxd/libdqlite.so"
 
 # If you want to disable hidepid on /proc inside CT, remove hidepid=2 mount option in overlay/usr/share/lxcfs/lxc.mount.hook:
 # mount -o remount,rw,nosuid,nodev,noexec,relatime,hidepid=2 ${LXC_ROOTFS_MOUNT}/proc
+
+# When systemd applies sysctl, no vlans have been created yet.
+# If you want to use vlan interfaces on LXD node:
+# mkdir -p /etc/systemd/system/lxd.service.d
+# cat <<EOF > /etc/systemd/system/lxd.service.d/override.conf
+# [Service]
+# ExecStartPre=/usr/sbin/sysctl --system
+# EOF
