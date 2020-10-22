@@ -1,3 +1,11 @@
+lxd (4.7.0-100) UNRELEASED; urgency=low
+
+  * New LXD version
+  * New lxcfs version
+  * Drop custom SQLite and libco
+
+ -- kaut <maksimkaut92@gmail.com>  Thu, 22 Oct 2020 13:20:00 +0300
+
 lxd (4.5.0-100) UNRELEASED; urgency=low
 
   * New LXD version
