@@ -2,9 +2,9 @@ cd /root
 
 apt-get install acl autoconf build-essential bzr checkinstall chrpath curl dnsmasq-base docbook2x doxygen ebtables gettext git help2man jq libacl1-dev libapparmor-dev libattr1-dev libcap-dev libfuse-dev libgnutls28-dev liblua5.2-dev libpam0g-dev libseccomp-dev libselinux-dev libsqlite3-dev libtool libuv1-dev linux-libc-dev lvm2 make patchelf pkg-config rsync socat sqlite3 squashfs-tools tar tcl thin-provisioning-tools uuid-runtime xz-utils libudev-dev
 
-wget https://github.com/lxc/lxc/archive/lxc-4.0.4.tar.gz -O /root/lxc-4.0.4.tar.gz
-tar xvzf /root/lxc-4.0.4.tar.gz -C /root/
-export LXC_BUILD_DIR=/root/lxc-lxc-4.0.4
+wget https://github.com/lxc/lxc/archive/lxc-4.0.5.tar.gz -O /root/lxc-4.0.5.tar.gz
+tar xvzf /root/lxc-4.0.5.tar.gz -C /root/
+export LXC_BUILD_DIR=/root/lxc-lxc-4.0.5
 
 cd ${LXC_BUILD_DIR}
 
