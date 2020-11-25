@@ -2,9 +2,9 @@ cd /root
 
 apt-get install acl autoconf build-essential bzr checkinstall chrpath curl dnsmasq-base docbook2x doxygen ebtables gettext git help2man jq libacl1-dev libapparmor-dev libattr1-dev libcap-dev libfuse-dev libgnutls28-dev liblua5.2-dev libpam0g-dev libseccomp-dev libselinux-dev libsqlite3-dev libtool libuv1-dev linux-libc-dev lvm2 make patchelf pkg-config rsync socat sqlite3 squashfs-tools tar tcl thin-provisioning-tools uuid-runtime xz-utils libudev-dev
 
-wget https://github.com/lxc/lxc/archive/lxc-4.0.4.tar.gz -O /root/lxc-4.0.4.tar.gz
-tar xvzf /root/lxc-4.0.4.tar.gz -C /root/
-export LXC_BUILD_DIR=/root/lxc-lxc-4.0.4
+wget https://github.com/lxc/lxc/archive/lxc-4.0.5.tar.gz -O /root/lxc-4.0.5.tar.gz
+tar xvzf /root/lxc-4.0.5.tar.gz -C /root/
+export LXC_BUILD_DIR=/root/lxc-lxc-4.0.5
 
 cd ${LXC_BUILD_DIR}
 
@@ -61,13 +61,13 @@ make
 
 cd /root
 
-wget https://dl.google.com/go/go1.15.3.linux-amd64.tar.gz -O /root/go1.15.3.linux-amd64.tar.gz
-tar xvzf /root/go1.15.3.linux-amd64.tar.gz -C /usr/local
+wget https://dl.google.com/go/go1.15.5.linux-amd64.tar.gz -O /root/go1.15.5.linux-amd64.tar.gz
+tar xvzf /root/go1.15.5.linux-amd64.tar.gz -C /usr/local
 export PATH=$PATH:/usr/local/go/bin
 
-wget https://github.com/lxc/lxd/releases/download/lxd-4.7/lxd-4.7.tar.gz -O /root/lxd-4.7.tar.gz
-tar xvzf /root/lxd-4.7.tar.gz -C /root/
-export GOPATH=/root/lxd-4.7/_dist
+wget https://github.com/lxc/lxd/releases/download/lxd-4.8/lxd-4.8.tar.gz -O /root/lxd-4.8.tar.gz
+tar xvzf /root/lxd-4.8.tar.gz -C /root/
+export GOPATH=/root/lxd-4.8/_dist
 
 cd $GOPATH/src/github.com/lxc/lxd
 make deps
