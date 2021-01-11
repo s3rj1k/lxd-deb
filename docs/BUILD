@@ -65,9 +65,9 @@ wget https://dl.google.com/go/go1.15.6.linux-amd64.tar.gz -O /root/go1.15.6.linu
 tar xvzf /root/go1.15.6.linux-amd64.tar.gz -C /usr/local
 export PATH=$PATH:/usr/local/go/bin
 
-wget https://github.com/lxc/lxd/releases/download/lxd-4.9/lxd-4.9.tar.gz -O /root/lxd-4.9.tar.gz
-tar xvzf /root/lxd-4.9.tar.gz -C /root/
-export GOPATH=/root/lxd-4.9/_dist
+wget https://github.com/lxc/lxd/releases/download/lxd-4.10/lxd-4.10.tar.gz -O /root/lxd-4.10.tar.gz
+tar xvzf /root/lxd-4.10.tar.gz -C /root/
+export GOPATH=/root/lxd-4.10/_dist
 
 cd $GOPATH/src/github.com/lxc/lxd
 make deps
