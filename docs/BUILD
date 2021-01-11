@@ -61,8 +61,8 @@ make
 
 cd /root
 
-wget https://dl.google.com/go/go1.15.5.linux-amd64.tar.gz -O /root/go1.15.5.linux-amd64.tar.gz
-tar xvzf /root/go1.15.5.linux-amd64.tar.gz -C /usr/local
+wget https://dl.google.com/go/go1.15.6.linux-amd64.tar.gz -O /root/go1.15.6.linux-amd64.tar.gz
+tar xvzf /root/go1.15.6.linux-amd64.tar.gz -C /usr/local
 export PATH=$PATH:/usr/local/go/bin
 
 wget https://github.com/lxc/lxd/releases/download/lxd-4.9/lxd-4.9.tar.gz -O /root/lxd-4.9.tar.gz
