@@ -1,3 +1,16 @@
+lxd (4.12.0-100) UNRELEASED; urgency=low
+
+  * New LXD version
+
+ -- kaut <maksimkaut92@gmail.com>  Wed, 10 Mar 2021 14:16:00 +0300
+
+lxd (4.11.0-100) UNRELEASED; urgency=low
+
+  * New LXD version
+  * New LXC version
+
+ -- kaut <maksimkaut92@gmail.com>  Mon, 22 Feb 2021 12:30:00 +0300
+
 lxd (4.10.0-100) UNRELEASED; urgency=low
 
   * New LXD version
