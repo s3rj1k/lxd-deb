@@ -1,0 +1,49 @@
+# Create test CT.
+lxc init ubuntu:18.04 test
+
+# Disable apparmor in CT.
+# lxc config set test raw.lxc lxc.apparmor.profile=unconfined
+
+# Configuring IPVLAN for IPv4 https://github.com/lxc/lxd/blob/master/doc/containers.md#nictype-ipvlan
+sysctl -w net.ipv4.conf.eno1.forwarding=1
+# sysctl -w net.ipv4.conf.eno1.proxy_arp=1
+# sysctl -w net.ipv4.conf.eno1.proxy_arp_pvlan=1
+sysctl -w net.ipv4.conf.eno1.rp_filter=0
+sysctl -w net.ipv4.neigh.default.gc_thresh1 = 2048
+sysctl -w net.ipv4.neigh.default.gc_thresh2 = 4096
+sysctl -w net.ipv4.neigh.default.gc_thresh3 = 8192
+
+# Configuring ipvlan for IPv6 (when needed).
+sysctl -w net.ipv6.conf.eno1.proxy_ndp=1
+sysctl -w net.ipv6.neigh.default.gc_thresh1 = 2048
+sysctl -w net.ipv6.neigh.default.gc_thresh2 = 4096
+sysctl -w net.ipv6.neigh.default.gc_thresh3 = 8192
+
+# Configure NIC inside CT.
+lxc config device add test eth0 nic name=eth0 nictype=ipvlan parent=eno1 mtu=1500 ipv4.address="IP"
+# lxc config device set test eth0 ipv6.address="IP"
+
+# Configure resolv.conf inside CT.
+lxc config device add test resolvconf disk path=/etc/resolv.conf source=/etc/resolv.conf readonly=true
+
+# Add fixed size disk (with project quota enabled).
+lxc config device add test root disk pool=default path=/
+lxc config device set test root size 8GiB
+
+# Set cpu limit.
+lxc config set test limits.cpu 2
+
+# Set memory limit.
+lxc config set test limits.memory 1024MiB
+lxc config set test limits.memory.enforce hard
+
+# Disable swap.
+lxc config set test limits.memory.swap false
+
+# Set numproc limit.
+lxc config set test limits.processes 600
+
+# Start CT.
+lxc start test
+
+# DEBUG: lxc config set test raw.lxc lxc.log.level=TRACE

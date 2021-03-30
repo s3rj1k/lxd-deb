@@ -1,0 +1,5 @@
+Add custom mount options 'lazytime,nouser_xattr,noacl'
+to '/var/lib/lxd/storage-pools/default' partition (/etc/fstab)
+
+Clean mount to make LXD happy:
+	rm -rf /var/lib/lxd/storage-pools/default/lost+found/

@@ -1,0 +1,24 @@
+# Configure LXD daemon using preseed
+
+cat <<EOF | lxd init --preseed
+config: {}
+networks: []
+storage_pools:
+- config: {}
+  description: ""
+  name: default
+  driver: dir
+profiles:
+- config:
+    limits.memory.enforce: hard
+    limits.memory.swap: "false"
+  description: ""
+  devices:
+    root:
+      path: /
+      pool: default
+      size: 1EiB
+      type: disk
+  name: default
+cluster: null
+EOF

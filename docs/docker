@@ -1,0 +1,3 @@
+BUILD is now Dockerized, see Dockerfile.
+
+To debug `make install` of inner packages use `checkinstall make install`

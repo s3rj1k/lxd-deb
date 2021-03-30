@@ -1,0 +1,6 @@
+PROJECT QUOTA
+
+	enable quota on ext4 partition: 'tune2fs -O project,quota -Q prjquota /dev/md1'
+	check filesystem features: 'tune2fs -l /dev/md1 | grep features'
+	mount ext4 partition to '/var/lib/lxd/storage-pools/default' with 'prjquota' mount option (/etc/fstab)
+	get quota information: 'repquota -avugPs'

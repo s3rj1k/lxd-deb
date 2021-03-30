@@ -1,0 +1,2 @@
+Add each sudo user to the LXD group:
+	for u in $(getent group sudo | sed -e "s/^.*://" -e "s/,/ /g"); do adduser "$u" lxd >/dev/null || true; done

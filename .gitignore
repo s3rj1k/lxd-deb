@@ -1,0 +1,7 @@
+overlay/usr/bin/
+overlay/usr/lib/lxc/*.so
+overlay/usr/lib/lxc/*.so.*
+overlay/usr/lib/lxcfs/*.so
+overlay/usr/lib/lxd/*.so
+overlay/usr/lib/lxd/*.so.*
+overlay/usr/share/bash-completion/completions/*
