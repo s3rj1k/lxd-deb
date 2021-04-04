@@ -5,3 +5,4 @@ overlay/usr/lib/lxcfs/*.so
 overlay/usr/lib/lxd/*.so
 overlay/usr/lib/lxd/*.so.*
 overlay/usr/share/bash-completion/completions/*
+*.deb

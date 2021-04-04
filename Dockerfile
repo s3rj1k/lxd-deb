@@ -9,6 +9,7 @@ ARG LXC_VERSION="4.0.6"
 ARG LXCFS_VERSION="4.0.7"
 ARG LXD_VERSION="4.12"
 
+# ToDo: Find a way to get library versions dynamically.
 ARG LIBDQLITE_SO_VERSION="0.0.1"
 ARG LIBRAFT_SO_VERSION="0.0.7"
 ARG LIBLXC_SO_VERSION="1.7.0"
@@ -142,7 +143,7 @@ RUN mkdir -v -p /BUILD/overlay/usr/bin \
   cp -av $GOPATH/deps/raft/.libs/libraft.so.$LIBRAFT_SO_VERSION /BUILD/overlay/usr/lib/lxd && \
   cp -av /root/lxcfs/src/.libs/liblxcfs.so /BUILD/overlay/usr/lib/lxcfs/liblxcfs.so && \
   cp -av /root/lxcfs/src/lxcfs /BUILD/overlay/usr/bin/lxcfs && \
-  cp -av /usr/lib/lxc/liblxc.so.$LIBLXC_SO_VERSION /BUILD/overlay/usr/lib/lxc/liblxc.so.1.7.0 && \
+  cp -av /usr/lib/lxc/liblxc.so.$LIBLXC_SO_VERSION /BUILD/overlay/usr/lib/lxc/liblxc.so.$LIBLXC_SO_VERSION && \
   ln -sv libdqlite.so.$LIBDQLITE_SO_VERSION /BUILD/overlay/usr/lib/lxd/libdqlite.so && \
   ln -sv libdqlite.so.$LIBDQLITE_SO_VERSION /BUILD/overlay/usr/lib/lxd/libdqlite.so.0 && \
   ln -sv liblxc.so.$LIBLXC_SO_VERSION /BUILD/overlay/usr/lib/lxc/liblxc.so && \
