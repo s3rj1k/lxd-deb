@@ -1,0 +1,2 @@
+Optionally disable CGroup v2 via kernel boot params:
+	systemd.unified_cgroup_hierarchy=0

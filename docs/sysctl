@@ -1,0 +1,16 @@
+Enable hardlinks/symlinks protection:
+	add 'fs.protected_hardlinks = 1'
+	and 'fs.protected_symlinks = 1'
+	to /etc/sysctl.d/10-link-restrictions.conf
+
+In releases, older than ubuntu 20.04 hardlinks/symlinks protection
+is enabled in /etc/sysctl.d/protect-links.conf
+
+When systemd applies sysctl, no vlans have been created yet.
+If you want to use VLAN interfaces on LXD node:
+
+mkdir -p /etc/systemd/system/lxd.service.d
+cat <<EOF > /etc/systemd/system/lxd.service.d/override.conf
+[Service]
+ExecStartPre=/usr/sbin/sysctl --system
+EOF
