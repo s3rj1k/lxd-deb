@@ -4,46 +4,46 @@ lxd (4.14.0-100) UNRELEASED; urgency=low
   * New LXC version
   * New LXCFS version
 
- -- kaut <maksimkaut92@gmail.com>  Tue, 18 May 2021 19:46:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Tue, 18 May 2021 19:46:00 +0300
 
 lxd (4.13.0-100) UNRELEASED; urgency=low
 ￼￼
 ￼￼* New LXD version
 ￼￼
-￼-- kaut <maksimkaut92@gmail.com>  Tue, 13 Apr 2021 18:41:00 +0300
+￼-- el-eks-di Project <el-eks-di@users.noreply.github.com>  Tue, 13 Apr 2021 18:41:00 +0300
 
 lxd (4.12.0-100) UNRELEASED; urgency=low
 
   * New LXD version
 
- -- kaut <maksimkaut92@gmail.com>  Wed, 10 Mar 2021 14:16:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Wed, 10 Mar 2021 14:16:00 +0300
 
 lxd (4.11.0-100) UNRELEASED; urgency=low
 
   * New LXD version
   * New LXC version
 
- -- kaut <maksimkaut92@gmail.com>  Mon, 22 Feb 2021 12:30:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Mon, 22 Feb 2021 12:30:00 +0300
 
 lxd (4.10.0-100) UNRELEASED; urgency=low
 
   * New LXD version
   * New lxcfs version
 
- -- kaut <maksimkaut92@gmail.com>  Mon, 11 Jan 2021 14:30:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Mon, 11 Jan 2021 14:30:00 +0300
 
 lxd (4.9.0-100) UNRELEASED; urgency=low
 
   * New LXD version
 
- -- kaut <maksimkaut92@gmail.com>  Wed, 16 Dec 2020 17:30:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Wed, 16 Dec 2020 17:30:00 +0300
 
 lxd (4.8.0-100) UNRELEASED; urgency=low
 
   * New LXD version
   * New LXC version
 
- -- kaut <maksimkaut92@gmail.com>  Wed, 25 Nov 2020 16:30:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Wed, 25 Nov 2020 16:30:00 +0300
 
 lxd (4.7.0-100) UNRELEASED; urgency=low
 
@@ -51,7 +51,7 @@ lxd (4.7.0-100) UNRELEASED; urgency=low
   * New lxcfs version
   * Drop custom SQLite and libco
 
- -- kaut <maksimkaut92@gmail.com>  Thu, 22 Oct 2020 13:20:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Thu, 22 Oct 2020 13:20:00 +0300
 
 lxd (4.5.0-100) UNRELEASED; urgency=low
 
@@ -59,16 +59,16 @@ lxd (4.5.0-100) UNRELEASED; urgency=low
   * New LXC version
   * New lxcfs version
 
- -- kaut <maksimkaut92@gmail.com>  Tue, 01 Sep 2020 18:50:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Tue, 01 Sep 2020 18:50:00 +0300
 
 lxd (4.3.0-100) UNRELEASED; urgency=low
 
   * New LXD version LXD
 
- -- s3rj1k <evasive.gyron@gmail.com>  Wed, 08 Jul 2020 18:50:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Wed, 08 Jul 2020 18:50:00 +0300
 
 lxd (4.3.0-0) UNRELEASED; urgency=low
 
   * Fake release
 
- -- s3rj1k <evasive.gyron@gmail.com>  Wed, 08 Jul 2020 13:50:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Wed, 08 Jul 2020 13:50:00 +0300

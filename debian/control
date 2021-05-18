@@ -1,7 +1,7 @@
 Source: lxd
 Section: admin
 Priority: optional
-Maintainer: s3rj1k <evasive.gyron@gmail.com>
+Maintainer: el-eks-di Project <el-eks-di@users.noreply.github.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.6
 
