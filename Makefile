@@ -1,6 +1,9 @@
-DOCKER_BIN = docker
 DOCKER_IMAGE = ubuntu-focal
-TAR_BIN = tar
+
+BASENAME_BIN ?= basename
+DOCKER_BIN ?= docker
+FIND_BIN ?= find
+TAR_BIN ?= tar
 
 all: clean build
 
@@ -10,3 +13,7 @@ build:
 
 clean:
 	${DOCKER_BIN} system prune -a -f
+
+.PHONY: print-env
+print-env:
+	LXD_PACKAGE_DEB=$(shell ${FIND_BIN} . -maxdepth 1 -name 'lxd*.deb' -type f -exec ${BASENAME_BIN} {} \;)

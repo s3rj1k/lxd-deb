@@ -10,16 +10,13 @@ jobs:
     - name: Clone this repository
       uses: actions/checkout@v2
 
-    - name: Set LXD package envs
-      run: |
-        echo "LXD_PACKAGE_VER=$(head -n1 debian/changelog | grep -oP '(?<=lxd\ \().*(?=\)\ UNRELEASED)')" >> $GITHUB_ENV
-        echo "LXD_PACKAGE_ARCH=$(cat debian/control | grep -oP '(?<=Architecture\:\ ).*(?=$)')" >> $GITHUB_ENV
-
     - name: Build LXD package
-      run: make build
+      run: |
+        make build
+        make print-env | tee $GITHUB_ENV
 
     - name: Upload LXD package
       uses: actions/upload-artifact@v2.2.3
       with:
-        name: lxd_${{ env.LXD_PACKAGE_VER }}_${{ env.LXD_PACKAGE_ARCH }}.deb
-        path: lxd_${{ env.LXD_PACKAGE_VER }}_${{ env.LXD_PACKAGE_ARCH }}.deb
+        name: ${{ env.LXD_PACKAGE_DEB }}
+        path: ${{ env.LXD_PACKAGE_DEB }}
