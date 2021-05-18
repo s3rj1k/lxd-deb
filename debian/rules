@@ -1,5 +1,9 @@
 #!/usr/bin/make -f
 
+DATETIME=$(shell date +%Y%m%d%H%M%S)
+VERSION=$(shell dpkg-parsechangelog --count 1 --show-field Version | cut -f1 -d'-')
+PACKAGEVERSION=$(VERSION)-$(DATETIME)
+
 %:
 	dh $@
 
@@ -7,3 +11,6 @@ override_dh_builddeb:
 	dh_builddeb -- -Zgzip
 
 override_dh_strip:
+
+override_dh_gencontrol:
+	dh_gencontrol -- -v$(PACKAGEVERSION)
