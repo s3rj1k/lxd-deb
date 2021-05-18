@@ -5,9 +5,9 @@
 FROM ubuntu:focal AS build
 
 ARG GO_VERSION="1.15.11"
-ARG LXC_VERSION="4.0.6"
-ARG LXCFS_VERSION="4.0.7"
-ARG LXD_VERSION="4.13"
+ARG LXC_VERSION="4.0.9"
+ARG LXCFS_VERSION="4.0.8"
+ARG LXD_VERSION="4.14"
 
 # ToDo: Find a way to get library versions dynamically.
 ARG LIBDQLITE_SO_VERSION="0.0.1"
@@ -75,7 +75,8 @@ RUN wget https://github.com/lxc/lxc/archive/lxc-$LXC_VERSION.tar.gz -O /root/lxc
 RUN wget https://github.com/lxc/lxcfs/archive/lxcfs-$LXCFS_VERSION.tar.gz -O /root/lxcfs-$LXCFS_VERSION.tar.gz && \
   mkdir -p /root/lxcfs && \
   tar xvzf /root/lxcfs-$LXCFS_VERSION.tar.gz --strip-components=1 -C /root/lxcfs
-RUN wget https://github.com/lxc/lxd/releases/download/lxd-$LXD_VERSION/lxd-$LXD_VERSION.tar.gz -O /root/lxd-$LXD_VERSION.tar.gz && \
+# RUN wget https://github.com/lxc/lxd/releases/download/lxd-$LXD_VERSION/lxd-$LXD_VERSION.tar.gz -O /root/lxd-$LXD_VERSION.tar.gz && \
+RUN wget https://linuxcontainers.org/downloads/lxd/lxd-$LXD_VERSION.tar.gz -O /root/lxd-$LXD_VERSION.tar.gz && \
   mkdir -p /root/lxd && \
   tar xvzf /root/lxd-$LXD_VERSION.tar.gz --strip-components=1 -C /root/lxd
 
