@@ -7,7 +7,7 @@ FROM ubuntu:focal AS build
 ARG GO_VERSION="1.15.11"
 ARG LXC_VERSION="4.0.9"
 ARG LXCFS_VERSION="4.0.8"
-ARG LXD_VERSION="4.14"
+ARG LXD_VERSION="4.15"
 
 # ToDo: Find a way to get library versions dynamically.
 ARG LIBDQLITE_SO_VERSION="0.0.1"
@@ -44,6 +44,7 @@ RUN apt-get update && apt-get -y install \
   libfuse-dev \
   libgnutls28-dev \
   liblua5.2-dev \
+  liblz4-dev \
   libpam0g-dev \
   libseccomp-dev \
   libselinux-dev \
