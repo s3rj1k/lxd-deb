@@ -7,7 +7,7 @@ FROM ubuntu:focal AS build
 ARG GO_VERSION="1.15.11"
 ARG LXC_VERSION="4.0.9"
 ARG LXCFS_VERSION="4.0.8"
-ARG LXD_VERSION="4.15"
+ARG LXD_VERSION="4.16"
 
 # ToDo: Find a way to get library versions dynamically.
 ARG LIBDQLITE_SO_VERSION="0.0.1"
@@ -128,7 +128,7 @@ RUN cd ${GOPATH}/src/github.com/lxc/lxd && \
 ENV CGO_CFLAGS="-I${GOPATH}/deps/raft/include/ -I${GOPATH}/deps/dqlite/include/"
 ENV CGO_LDFLAGS="-L${GOPATH}/deps/raft/.libs -L${GOPATH}/deps/dqlite/.libs/"
 ENV LD_LIBRARY_PATH="${GOPATH}/deps/raft/.libs/:${GOPATH}/deps/dqlite/.libs/"
-ENV CGO_LDFLAGS_ALLOW="-Wl,-wrap,pthread_create"
+ENV CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 
 RUN cd ${GOPATH}/src/github.com/lxc/lxd && \
   make
