@@ -1,3 +1,11 @@
+lxd (4.17.0) UNRELEASED; urgency=low
+
+  * New LXD version
+  * New LXC version
+  * New LXCFS version
+
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Mon, 16 Aug 2021 15:40:00 +0300
+
 lxd (4.16.0) UNRELEASED; urgency=low
 
   * New LXD version
