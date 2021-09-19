@@ -5,9 +5,9 @@
 FROM ubuntu:focal AS build
 
 ARG GO_VERSION="1.15.11"
-ARG LXC_VERSION="4.0.9"
-ARG LXCFS_VERSION="4.0.8"
-ARG LXD_VERSION="4.16"
+ARG LXC_VERSION="4.0.10"
+ARG LXCFS_VERSION="4.0.9"
+ARG LXD_VERSION="4.17"
 
 # ToDo: Find a way to get library versions dynamically.
 ARG LIBDQLITE_SO_VERSION="0.0.1"
