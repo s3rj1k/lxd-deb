@@ -4,10 +4,10 @@
 
 FROM ubuntu:focal AS build
 
-ARG GO_VERSION="1.15.11"
+ARG GO_VERSION="1.16.8"
 ARG LXC_VERSION="4.0.10"
 ARG LXCFS_VERSION="4.0.9"
-ARG LXD_VERSION="4.17"
+ARG LXD_VERSION="4.18"
 
 # ToDo: Find a way to get library versions dynamically.
 ARG LIBDQLITE_SO_VERSION="0.0.1"
@@ -121,16 +121,17 @@ RUN cd /root/lxcfs && \
     --with-init-script=systemd && \
   make
 
-ENV GOPATH=/root/lxd/_dist
-RUN cd ${GOPATH}/src/github.com/lxc/lxd && \
+ENV GOPATH=/root/lxd
+RUN cd ${GOPATH} && \
   make deps
 
-ENV CGO_CFLAGS="-I${GOPATH}/deps/raft/include/ -I${GOPATH}/deps/dqlite/include/"
-ENV CGO_LDFLAGS="-L${GOPATH}/deps/raft/.libs -L${GOPATH}/deps/dqlite/.libs/"
-ENV LD_LIBRARY_PATH="${GOPATH}/deps/raft/.libs/:${GOPATH}/deps/dqlite/.libs/"
+ENV CGO_CFLAGS="-I${GOPATH}/vendor/raft/include/ -I${GOPATH}/vendor/dqlite/include/"
+ENV CGO_LDFLAGS="-L${GOPATH}/vendor/raft/.libs/ -L${GOPATH}/vendor/dqlite/.libs/"
+ENV LD_LIBRARY_PATH="${GOPATH}/vendor/raft/.libs/:${GOPATH}/vendor/dqlite/.libs/"
 ENV CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 
-RUN cd ${GOPATH}/src/github.com/lxc/lxd && \
+ENV GOPATH=
+RUN cd /root/lxd && \
   make
 
 RUN mkdir -v -p /BUILD/overlay/usr/bin \
@@ -138,11 +139,11 @@ RUN mkdir -v -p /BUILD/overlay/usr/bin \
     /BUILD/overlay/usr/lib/lxcfs \
     /BUILD/overlay/usr/lib/lxd \
     /BUILD/overlay/usr/share/bash-completion/completions && \
-  cp -av $GOPATH/bin/fuidshift /BUILD/overlay/usr/bin/fuidshift && \
-  cp -av $GOPATH/bin/lxc /BUILD/overlay/usr/bin/lxc && \
-  cp -av $GOPATH/bin/lxd /BUILD/overlay/usr/bin/lxd && \
-  cp -av $GOPATH/deps/dqlite/.libs/libdqlite.so.$LIBDQLITE_SO_VERSION /BUILD/overlay/usr/lib/lxd && \
-  cp -av $GOPATH/deps/raft/.libs/libraft.so.$LIBRAFT_SO_VERSION /BUILD/overlay/usr/lib/lxd && \
+  cp -av /root/go/bin/fuidshift /BUILD/overlay/usr/bin/fuidshift && \
+  cp -av /root/go/bin/lxc /BUILD/overlay/usr/bin/lxc && \
+  cp -av /root/go/bin/lxd /BUILD/overlay/usr/bin/lxd && \
+  cp -av /root/lxd/vendor/dqlite/.libs/libdqlite.so.$LIBDQLITE_SO_VERSION /BUILD/overlay/usr/lib/lxd && \
+  cp -av /root/lxd/vendor/raft/.libs/libraft.so.$LIBRAFT_SO_VERSION /BUILD/overlay/usr/lib/lxd && \
   cp -av /root/lxcfs/src/.libs/liblxcfs.so /BUILD/overlay/usr/lib/lxcfs/liblxcfs.so && \
   cp -av /root/lxcfs/src/lxcfs /BUILD/overlay/usr/bin/lxcfs && \
   cp -av /usr/lib/lxc/liblxc.so.$LIBLXC_SO_VERSION /BUILD/overlay/usr/lib/lxc/liblxc.so.$LIBLXC_SO_VERSION && \
@@ -152,7 +153,7 @@ RUN mkdir -v -p /BUILD/overlay/usr/bin \
   ln -sv liblxc.so.$LIBLXC_SO_VERSION /BUILD/overlay/usr/lib/lxc/liblxc.so.1 && \
   ln -sv libraft.so.$LIBRAFT_SO_VERSION /BUILD/overlay/usr/lib/lxd/libraft.so && \
   ln -sv libraft.so.$LIBRAFT_SO_VERSION /BUILD/overlay/usr/lib/lxd/libraft.so.0 && \
-  cp -av $GOPATH/src/github.com/lxc/lxd/scripts/bash/lxd-client /BUILD/overlay/usr/share/bash-completion/completions/lxc && \
+  cp -av /root/lxd/scripts/bash/lxd-client /BUILD/overlay/usr/share/bash-completion/completions/lxc && \
   strip -v -s /BUILD/overlay/usr/bin/fuidshift && \
   strip -v -s /BUILD/overlay/usr/bin/lxc && \
   strip -v -s /BUILD/overlay/usr/bin/lxcfs && \
