@@ -121,17 +121,16 @@ RUN cd /root/lxcfs && \
     --with-init-script=systemd && \
   make
 
-ENV GOPATH=/root/lxd
-RUN cd ${GOPATH} && \
+ENV CWD=/root/lxd
+RUN cd ${CWD} && \
   make deps
 
-ENV CGO_CFLAGS="-I${GOPATH}/vendor/raft/include/ -I${GOPATH}/vendor/dqlite/include/"
-ENV CGO_LDFLAGS="-L${GOPATH}/vendor/raft/.libs/ -L${GOPATH}/vendor/dqlite/.libs/"
-ENV LD_LIBRARY_PATH="${GOPATH}/vendor/raft/.libs/:${GOPATH}/vendor/dqlite/.libs/"
+ENV CGO_CFLAGS="-I${CWD}/vendor/raft/include/ -I${CWD}/vendor/dqlite/include/"
+ENV CGO_LDFLAGS="-L${CWD}/vendor/raft/.libs/ -L${CWD}/vendor/dqlite/.libs/"
+ENV LD_LIBRARY_PATH="${CWD}/vendor/raft/.libs/:${CWD}/vendor/dqlite/.libs/"
 ENV CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 
-ENV GOPATH=
-RUN cd /root/lxd && \
+RUN cd ${CWD} && \
   make
 
 RUN mkdir -v -p /BUILD/overlay/usr/bin \
