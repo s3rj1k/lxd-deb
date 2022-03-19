@@ -1,8 +1,16 @@
+lxd (4.23.0) UNRELEASED; urgency=low
+
+  * New LXD version
+  * New LXC version
+  * New LXCFS version
+
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Fri, 18 Mar 2022 19:30:00 +0300
+
 lxd (4.22.0) UNRELEASED; urgency=low
 
   * New LXD version
 
- -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Sat, 22 Dec 2022 17:30:00 +0300
+ -- el-eks-di Project <el-eks-di@users.noreply.github.com>  Sat, 22 Jan 2022 17:30:00 +0300
 
 lxd (4.21.0) UNRELEASED; urgency=low
 
